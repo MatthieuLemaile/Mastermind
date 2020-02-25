@@ -1,11 +1,11 @@
 package fr.lemaile.mastermind;
 
-import fr.lemaile.mastermind.ui.Window;
+import fr.lemaile.mastermind.ui.Board.Board;
 
 public class AppMain {
 
     public static void main(String[] args) {
-        Window fenetre = new Window();
+        Board fenetre = new Board();
     }
 
 }

@@ -1,19 +1,15 @@
 package fr.lemaile.mastermind;
 
-import java.util.ArrayList;
-
 public class Traitement {
 
-    private int NumPartie;
-    private int NumPin;
-    private ArrayList tabCombination;
+    private int numPartie;
+    private int numPin;
 
     private int i;
 
     public Traitement() {
-        NumPartie = 0;
-        NumPin = 0;
-        tabCombination = new ArrayList();
+        numPartie = 0;
+        numPin = 0;
         i = 0;
     }
 
@@ -22,37 +18,37 @@ public class Traitement {
     }
 
     public void incrementNumPartie() {
-        NumPartie++;
+        numPartie++;
     }
 
     public void resetNumPartie() {
-        NumPartie = 0;
+        numPartie = 0;
     }
 
     public int getNumPartie() {
-        return NumPartie;
+        return numPartie;
     }
 
     public void incrementNumPin() {
-        NumPin++;
+        numPin++;
     }
 
     public void resetNumPin() {
-        NumPin = (NumPartie * 5);
+        numPin = (numPartie * 5);
         i = 0;
     }
 
     public int getNumPin() {
-        return NumPin;
+        return numPin;
     }
 
     public void updateNumPin() {
         if (i <= 4) {
-            NumPin = (NumPartie * 5) + i;
+            numPin = (numPartie * 5) + i;
             i++;
         } else {
             i = 1;
-            NumPin = (NumPartie * 5);
+            numPin = (numPartie * 5);
         }
     }
 
