@@ -1,6 +1,7 @@
 Feature list
-1) refactor to separate UI from logic
-2) 1st panel would be a menu, with a "start game" option.
-3) Add option to have or not same color multiple times
-4) add option to the number of allowed trials
+1) Create listener for UI
+2) Create controller, totally separated from UI components
+3) Ui componnents => refacto inside, constructors a bit messy
 
+bug :
+=> win in max attempts, 2 messages : won ! lost !

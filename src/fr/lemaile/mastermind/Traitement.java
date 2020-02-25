@@ -1,7 +1,10 @@
 package fr.lemaile.mastermind;
 
+import java.util.Random;
+
 public class Traitement {
 
+    public static final Random RANDOM = new Random();
     private int numPartie;
     private int numPin;
 
@@ -53,7 +56,8 @@ public class Traitement {
     }
 
     public int aleatoire() {
-        return (int) (Math.random() * 8);
+        //random value between 0 (inclusive) and 8 (exclusive)
+        return RANDOM.nextInt(8);
     }
 
 }
