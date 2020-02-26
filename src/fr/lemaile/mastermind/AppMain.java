@@ -1,11 +1,12 @@
 package fr.lemaile.mastermind;
 
-import fr.lemaile.mastermind.ui.board.Board;
+import fr.lemaile.mastermind.controller.Match;
 
 public class AppMain {
 
     public static void main(String[] args) {
-        new Board();
+        Match match = new Match();
+        match.start();
     }
 
 }

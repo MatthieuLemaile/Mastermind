@@ -4,50 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BoardHeader extends JPanel {
+
+    public static final Font FONT = new Font("Arial", Font.BOLD, 25);
+
     public BoardHeader() {
         super(new FlowLayout(FlowLayout.CENTER, 0, 15));
 
-        Font font = new Font("Arial", Font.BOLD, 25);
-        JLabel textTitleM = new JLabel("M ");
-        textTitleM.setForeground(Color.blue);
-        textTitleM.setFont(font);
-        JLabel textTitleA = new JLabel("A ");
-        textTitleA.setForeground(Color.pink);
-        textTitleA.setFont(font);
-        JLabel textTitleS = new JLabel("S ");
-        textTitleS.setForeground(Color.green);
-        textTitleS.setFont(font);
-        JLabel textTitleT = new JLabel("T ");
-        textTitleT.setForeground(Color.red);
-        textTitleT.setFont(font);
-        JLabel textTitleE = new JLabel("E ");
-        textTitleE.setForeground(Color.black);
-        textTitleE.setFont(font);
-        JLabel textTitleR = new JLabel("R ");
-        textTitleR.setForeground(Color.orange);
-        textTitleR.setFont(font);
-        JLabel textTitleMbis = new JLabel("M ");
-        textTitleMbis.setForeground(Color.blue);
-        textTitleMbis.setFont(font);
-        JLabel textTitleI = new JLabel("I ");
-        textTitleI.setForeground(Color.green);
-        textTitleI.setFont(font);
-        JLabel textTitleN = new JLabel("N ");
-        textTitleN.setForeground(Color.gray);
-        textTitleN.setFont(font);
-        JLabel textTitleD = new JLabel("D");
-        textTitleD.setForeground(Color.orange);
-        textTitleD.setFont(font);
+        this.add(getLetter("M ", Color.blue));
+        this.add(getLetter("A ", Color.pink));
+        this.add(getLetter("S ", Color.green));
+        this.add(getLetter("T ", Color.red));
+        this.add(getLetter("E ", Color.black));
+        this.add(getLetter("R ", Color.orange));
+        this.add(getLetter("M ", Color.blue));
+        this.add(getLetter("I ", Color.green));
+        this.add(getLetter("N ", Color.gray));
+        this.add(getLetter("D", Color.orange));
+    }
 
-        this.add(textTitleM);
-        this.add(textTitleA);
-        this.add(textTitleS);
-        this.add(textTitleT);
-        this.add(textTitleE);
-        this.add(textTitleR);
-        this.add(textTitleMbis);
-        this.add(textTitleI);
-        this.add(textTitleN);
-        this.add(textTitleD);
+    private JLabel getLetter(String text, Color color) {
+        JLabel textTitleM = new JLabel(text);
+        textTitleM.setForeground(color);
+        textTitleM.setFont(FONT);
+        return textTitleM;
     }
 }
