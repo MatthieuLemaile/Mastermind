@@ -36,7 +36,7 @@ public class Match implements BoardEventListener {
         //create combination
         possibleColors = Arrays.stream(Color.values())
                 //remove "empty" color
-                .filter(c -> c != Color.WHITE)
+                .filter(c -> c != Color.EMPTY)
                 .collect(Collectors.toList());
         pickCombination();
     }
@@ -54,6 +54,8 @@ public class Match implements BoardEventListener {
 
     @Override
     public void leaveGame() {
+        //The user will wait a bit less for the window to close, event if all the background process are not terminated.
+        board.dispose();
         System.exit(0);
     }
 
@@ -85,16 +87,16 @@ public class Match implements BoardEventListener {
         for (int pin = 0; pin < proposition.size(); pin++) {
             if (proposition.get(pin).equals(combination.get(pin))) {
                 bienPlace++;
-                proposition.set(pin, Color.WHITE);
-                combination.set(pin, Color.WHITE);
+                proposition.set(pin, Color.EMPTY);
+                combination.set(pin, Color.EMPTY);
             }
         }
 
         for (int pin = 0; pin < proposition.size(); pin++) {
-            if (combination.contains(proposition.get(pin)) && !proposition.get(pin).equals(Color.WHITE)) {
+            if (combination.contains(proposition.get(pin)) && !proposition.get(pin).equals(Color.EMPTY)) {
                 malPlace++;
-                combination.set(combination.indexOf(proposition.get(pin)), Color.WHITE);
-                proposition.set(pin, Color.WHITE);
+                combination.set(combination.indexOf(proposition.get(pin)), Color.EMPTY);
+                proposition.set(pin, Color.EMPTY);
             }
         }
 

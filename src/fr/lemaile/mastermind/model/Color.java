@@ -1,7 +1,7 @@
 package fr.lemaile.mastermind.model;
 
 public enum Color {
-    WHITE,
+    EMPTY,
     RED,
     BLUE,
     GREEN,

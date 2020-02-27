@@ -1,16 +1,21 @@
 package fr.lemaile.mastermind.ui.board;
 
+import fr.lemaile.mastermind.model.Color;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * This class represent the main game window.
+ */
 public class Board extends JFrame {
 
     private BoardBody boardBody;
     private BoardMenu boardMenu;
 
-    public Board(int nbPin, int nbAttempts, List<fr.lemaile.mastermind.model.Color> colorList, BoardEventListener boardEventListener) {
+    public Board(int nbPin, int nbAttempts, List<Color> colorList, BoardEventListener boardEventListener) {
 
         //Base properties
         setTitle("MASTERMIND");
@@ -60,15 +65,15 @@ public class Board extends JFrame {
         JOptionPane.showMessageDialog(null, message);
     }
 
-    public void showCombination(List<fr.lemaile.mastermind.model.Color> combination) {
+    public void showCombination(List<Color> combination) {
         boardBody.showCombination(combination);
     }
 
-    public void displayPropositionRow(int rowNumber, List<fr.lemaile.mastermind.model.Color> colors) {
+    public void displayPropositionRow(int rowNumber, List<Color> colors) {
         boardBody.displayPropositionRow(rowNumber, colors);
     }
 
-    public void displayResultRow(int rowNumber, List<fr.lemaile.mastermind.model.Color> colors) {
+    public void displayResultRow(int rowNumber, List<Color> colors) {
         boardBody.displayResultRow(rowNumber, colors);
     }
 }

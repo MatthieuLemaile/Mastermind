@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * This class represent all info for a match.
+ */
 public class MatchData {
     private int currentRow;
     private int currentPin;
@@ -21,7 +24,7 @@ public class MatchData {
 
     public void resetData() {
         Color[] defaultCombinationColor = new Color[nbPin];
-        Arrays.fill(defaultCombinationColor, Color.WHITE);
+        Arrays.fill(defaultCombinationColor, Color.EMPTY);
         combination = Arrays.asList(defaultCombinationColor);
 
 
@@ -29,14 +32,14 @@ public class MatchData {
         IntStream.range(0, nbPossibleAttempts)
                 .forEach(i -> {
                     Color[] defaultColor = new Color[nbPin];
-                    Arrays.fill(defaultColor, Color.WHITE);
+                    Arrays.fill(defaultColor, Color.EMPTY);
                     propositions.add(Arrays.asList(defaultColor));
                 });
         answers = new ArrayList<>(nbPossibleAttempts);
         IntStream.range(0, nbPossibleAttempts)
                 .forEach(i -> {
                     Color[] defaultColor = new Color[nbPin];
-                    Arrays.fill(defaultColor, Color.WHITE);
+                    Arrays.fill(defaultColor, Color.EMPTY);
                     answers.add(Arrays.asList(defaultColor));
                 });
         currentRow = 0;

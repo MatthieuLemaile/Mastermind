@@ -17,7 +17,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ## Things to add
 
-* document a bit more this code.
 * java module
 * java FX (in place of swing/awt)
 * Add 1st window menu with a lot of choosing options. how many balls ? how many colors ? how many attempts ?

@@ -2,6 +2,9 @@ package fr.lemaile.mastermind.ui;
 
 import java.awt.*;
 
+/**
+ * This class map model color, that are purely abstract ones, to actual UI colors.
+ */
 public class ColorMapper {
 
     private ColorMapper() {
@@ -10,9 +13,8 @@ public class ColorMapper {
 
     public static Color mapToUi(fr.lemaile.mastermind.model.Color color) {
         Color returnValue;
-
         switch (color) {
-            case WHITE:
+            case EMPTY:
                 returnValue = Color.WHITE;
                 break;
             case RED:
