@@ -35,12 +35,6 @@ public class CombinationPanel extends JPanel {
         add(gridCombination);
     }
 
-    public void resetCombination() {
-        for (JButton element : combinationButton) {
-            element.setBackground(Color.WHITE);
-        }
-    }
-
     public void showCombination(List<fr.lemaile.mastermind.model.Color> combination) {
         Iterator<JButton> uiIterator = combinationButton.iterator();
         Iterator<fr.lemaile.mastermind.model.Color> combinationIterator = combination.iterator();

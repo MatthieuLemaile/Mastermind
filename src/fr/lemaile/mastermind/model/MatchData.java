@@ -13,16 +13,14 @@ public class MatchData {
     private int currentPin;
     private int nbPin;
     private int nbPossibleAttempts;
-    private List<Color> combination = new ArrayList<>();
-    private List<List<Color>> propositions = new ArrayList<>();
-    private List<List<Color>> answers = new ArrayList<>();
+    private List<Color> combination;
+    private List<List<Color>> propositions;
+    private List<List<Color>> answers;
 
     public MatchData(int nbPin, int nbPossibleAttempts) {
         this.nbPin = nbPin;
         this.nbPossibleAttempts = nbPossibleAttempts;
-    }
 
-    public void resetData() {
         Color[] defaultCombinationColor = new Color[nbPin];
         Arrays.fill(defaultCombinationColor, Color.EMPTY);
         combination = Arrays.asList(defaultCombinationColor);

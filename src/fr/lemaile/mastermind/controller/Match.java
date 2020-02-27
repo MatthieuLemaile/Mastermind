@@ -3,7 +3,6 @@ package fr.lemaile.mastermind.controller;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchData;
 import fr.lemaile.mastermind.ui.board.Board;
-import fr.lemaile.mastermind.ui.board.BoardEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,19 +18,20 @@ import java.util.stream.IntStream;
 public class Match implements BoardEventListener {
 
     public static final Random RANDOM = new Random();
-    public static final int NB_PIN = 5;
-    public static final int NB_POSSIBLE_ATTEMPTS = 12;
     private MatchData matchData;
     private Board board;
     private List<Color> possibleColors;
+    private final GameEventListener gameListener;
 
-    public void start() {
-        initMatchData();
+    public Match(int nbPin, int nbPossibleAttempts, GameEventListener gameListener) {
+        this.gameListener = gameListener;
+        initMatchData(nbPin, nbPossibleAttempts);
         initMainBoardUI();
+        board.showCombination(matchData.getCombination());
     }
 
-    private void initMatchData() {
-        matchData = new MatchData(NB_PIN, NB_POSSIBLE_ATTEMPTS);
+    private void initMatchData(int nbPin, int nbPossibleAttempts) {
+        matchData = new MatchData(nbPin, nbPossibleAttempts);
 
         //create combination
         possibleColors = Arrays.stream(Color.values())
@@ -53,24 +53,10 @@ public class Match implements BoardEventListener {
     }
 
     @Override
-    public void leaveGame() {
+    public void leaveMatch() {
         //The user will wait a bit less for the window to close, event if all the background process are not terminated.
         board.dispose();
-        System.exit(0);
-    }
-
-    @Override
-    public void newMatch() {
-        //data reinitialisation
-        matchData.resetData();
-        //ui reinitialisation
-        board.enableGUI();
-        board.resetBoard();
-
-        //starting game
-        pickCombination();
-        //Information
-        board.displayMessage("Partie lancée !");
+        gameListener.openMenu();
     }
 
     @Override
@@ -100,7 +86,7 @@ public class Match implements BoardEventListener {
             }
         }
 
-        mauvais = NB_PIN - (bienPlace + malPlace);
+        mauvais = matchData.getNbPin() - (bienPlace + malPlace);
 
         //Create a list of bienPlace greeen element.
         List<Color> result = createAnswer(bienPlace, malPlace, mauvais);
@@ -117,14 +103,14 @@ public class Match implements BoardEventListener {
     }
 
     private void endGameCheck(int bienPlace) {
-        if (bienPlace == NB_PIN) {
+        if (bienPlace == matchData.getNbPin()) {
             board.showCombination(matchData.getCombination());
-            board.disableGUI();
             board.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
-        } else if (matchData.getCurrentRow() == NB_POSSIBLE_ATTEMPTS) {
+            this.leaveMatch();
+        } else if (matchData.getCurrentRow() == matchData.getNbPossibleAttempts()) {
             board.showCombination(matchData.getCombination());
-            board.disableGUI();
             board.displayMessage("Perdu. Réessayez.");
+            this.leaveMatch();
         }
     }
 

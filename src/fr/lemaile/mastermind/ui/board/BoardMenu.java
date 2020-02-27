@@ -1,5 +1,6 @@
 package fr.lemaile.mastermind.ui.board;
 
+import fr.lemaile.mastermind.controller.BoardEventListener;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.ui.ColorMapper;
 
@@ -9,10 +10,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static fr.lemaile.mastermind.ui.Constant.ACTION_BUTTON_SIZE;
+import static fr.lemaile.mastermind.ui.Constant.COLOR_BUTTON_SIZE;
+
 public class BoardMenu extends JPanel {
 
-    public static final Dimension COLOR_BUTTON_SIZE = new Dimension(50, 25);
-    public static final Dimension ACTION_BUTTON_SIZE = new Dimension(110, 30);
+
     private List<JButton> buttonColorList;
     private JButton buttonValidate = new JButton("Valider");
 
@@ -36,23 +39,19 @@ public class BoardMenu extends JPanel {
             add(Box.createRigidArea(new Dimension(0, 5)));
         });
 
-        JButton buttonNew = new JButton("Nouveau");
         JButton buttonLeave = new JButton("Quitter");
         initDefaultButton(buttonValidate, actionEvent -> eventListener.validateCombination());
-        initDefaultButton(buttonNew, actionEvent -> eventListener.newMatch());
-        initDefaultButton(buttonLeave, actionEvent -> eventListener.leaveGame());
+        initDefaultButton(buttonLeave, actionEvent -> eventListener.leaveMatch());
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(buttonValidate);
-        add(Box.createRigidArea(new Dimension(0, 5)));
-        add(buttonNew);
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(buttonLeave);
         add(Box.createRigidArea(new Dimension(0, 20)));
 
         add(getTextArea("By Marc L."));
         add(getTextArea("With Matthieu L"));
-        add(getTextArea("v 1.2"));
+        add(getTextArea("v 1.3"));
     }
 
     private JLabel getTextArea(String text) {
@@ -61,21 +60,11 @@ public class BoardMenu extends JPanel {
         return textVersion;
     }
 
-    private void initDefaultButton(JButton buttonNew, ActionListener actionListener) {
-        buttonNew.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonNew.setMinimumSize(ACTION_BUTTON_SIZE);
-        buttonNew.setMaximumSize(ACTION_BUTTON_SIZE);
-        buttonNew.setPreferredSize(ACTION_BUTTON_SIZE);
-        buttonNew.addActionListener(actionListener);
-    }
-
-    public void enableGameButton() {
-        buttonValidate.setEnabled(true);
-        buttonColorList.forEach(b -> b.setEnabled(true));
-    }
-
-    public void disableGameButton() {
-        buttonValidate.setEnabled(false);
-        buttonColorList.forEach(b -> b.setEnabled(false));
+    private void initDefaultButton(JButton button, ActionListener actionListener) {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMinimumSize(ACTION_BUTTON_SIZE);
+        button.setMaximumSize(ACTION_BUTTON_SIZE);
+        button.setPreferredSize(ACTION_BUTTON_SIZE);
+        button.addActionListener(actionListener);
     }
 }

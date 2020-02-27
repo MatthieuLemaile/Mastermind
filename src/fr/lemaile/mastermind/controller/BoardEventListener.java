@@ -1,14 +1,10 @@
-package fr.lemaile.mastermind.ui.board;
+package fr.lemaile.mastermind.controller;
 
 import fr.lemaile.mastermind.model.Color;
 
 public interface BoardEventListener {
-
-    void leaveGame();
-
-    void newMatch();
+    void leaveMatch();
 
     void validateCombination();
-
     void proposeColor(Color color);
 }

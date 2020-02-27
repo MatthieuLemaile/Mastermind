@@ -39,12 +39,6 @@ public class BoardBody extends JPanel {
         combinationPanel.showCombination(combination);
     }
 
-    public void resetBoard() {
-        propositionPanel.resetGrid();
-        validationPanel.resetGrid();
-        combinationPanel.resetCombination();
-    }
-
     public void displayPropositionRow(int rowNumber, List<Color> colors) {
         propositionPanel.displayRow(rowNumber, colors);
     }

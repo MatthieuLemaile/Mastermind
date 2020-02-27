@@ -45,14 +45,6 @@ public class GridPanel extends JPanel {
         return grid;
     }
 
-    public void resetGrid() {
-        for (List<JButton> row : rows) {
-            for (JButton element : row) {
-                element.setBackground(java.awt.Color.WHITE);
-            }
-        }
-    }
-
     public void displayRow(int rowNumber, List<Color> colors) {
         if (rowNumber < 0 || rowNumber > rows.size()) {
             throw new IllegalArgumentException("This is not a valid row number");

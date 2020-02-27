@@ -1,12 +1,11 @@
 package fr.lemaile.mastermind;
 
-import fr.lemaile.mastermind.controller.Match;
+import fr.lemaile.mastermind.controller.Game;
 
 public class AppMain {
 
     public static void main(String[] args) {
-        Match match = new Match();
-        match.start();
+        new Game();
     }
 
 }

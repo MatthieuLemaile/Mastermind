@@ -1,5 +1,6 @@
 package fr.lemaile.mastermind.ui.board;
 
+import fr.lemaile.mastermind.controller.BoardEventListener;
 import fr.lemaile.mastermind.model.Color;
 
 import javax.swing.*;
@@ -39,26 +40,12 @@ public class Board extends JFrame {
         principalContainer.add(boardHeader, BorderLayout.PAGE_START);
         principalContainer.add(panelBody, BorderLayout.CENTER);
         panelBody.setBorder(new EmptyBorder(5, 5, 20, 5));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         //LANCER PREMIERE PARTIE
-        disableGUI();
-        JOptionPane.showMessageDialog(null, "Pour lancer une partie,\nappuyez sur le bouton \"Nouveau\"");
         pack();
         setLocationRelativeTo(getParent());
         setVisible(true);
-    }
-
-    public void resetBoard() {
-        boardBody.resetBoard();
-    }
-
-    public void enableGUI() {
-        boardMenu.enableGameButton();
-    }
-
-    public void disableGUI() {
-        boardMenu.disableGameButton();
     }
 
     public void displayMessage(String message) {
