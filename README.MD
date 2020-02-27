@@ -53,7 +53,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 #### backlog
 ###### technical improvment task
 * java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
-* java module (problem with java.awt imported from two modules.) ?
 * log into a file ?
 
 ###### code improvment
@@ -72,11 +71,14 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ## Release History
 
 #### 1.6
+###### Dev part
+* java 9 module introduced. lightweight jar.
+* easier to compile uber jar, just run the shadowJar gradle task (it should be done on build).
 
 #### 1.5
 ###### User Visible
 * Option : can choose the number of pin/balls.
-###### Dev only
+###### Dev part
 * Added logs
 * Factory for UI, more separation between controller/UI
 

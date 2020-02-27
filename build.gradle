@@ -9,21 +9,26 @@ plugins {
     id 'jacoco'
     //Create uber (fat) jar.
     id 'com.github.johnrengelman.shadow' version '5.2.0'
+    //Used for modularity.
+    id 'org.javamodularity.moduleplugin' version '1.6.0'
 }
 
 group = 'fr.lemaile'
 version = '1.6-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = 11
+targetCompatibility = 11
 
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 
+//configuring sonar access
 sonarqube {
     properties {
         property "sonar.projectKey", "Mastermind"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.login", "5b3ed4d06fc538ccf8cd687e445aed4c3c8d6675" //EXC
 //        property "sonar.login", "5f16dadac80fbd3663dda9f99e2bf487f1269351" //PER
+        //configuring sonar exclusions.
         property 'sonar.coverage.exclusions', [
                 "**/mastermind/AppMain*",
                 "**/mastermind/ui/about/**/*",
@@ -45,12 +50,27 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        output.resourcesDir = java.outputDir
+    }
+}
+
+
 dependencies {
     compile 'org.apache.logging.log4j:log4j-api:2.13.1'
-    compile 'org.apache.logging.log4j:log4j-core:2.13.1'
-    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.1'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.2'
+    compile ('org.apache.logging.log4j:log4j-core:2.13.1') {
+//        exclude group :'log4j', module:'log4j'
+//        exclude group :'ch.qos.logback', module :'logback-core'
+//        exclude group :'org.apache.logging.log4j', module:'log4j-to-slf4j'
+    }
+    compile ('org.apache.logging.log4j:log4j-slf4j18-impl:2.13.1') {
+//        exclude group: 'org.apache.logging.log4j', module :'log4j-to-slf4j'
+//        exclude group: 'ch.qos.logback', module :'logback-core'
+    }
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.3'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.3'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.4.2'
 //    testCompile "org.mockito:mockito-core:2.+"
     testCompile "org.mockito:mockito-junit-jupiter:2.+"
@@ -66,6 +86,7 @@ publishing {
     //
 }
 
+//configuring manifest jar file.
 jar {
     manifest {
         attributes(
@@ -77,24 +98,26 @@ jar {
     }
 }
 
+//use of junit 5 test.
 test {
     useJUnitPlatform()
+    moduleOptions {
+        runOnClasspath = true
+    }
 }
-
-
 
 jacoco {
     toolVersion = "0.8.5"
 }
 
-
-
+//configure jacoco task. XML report are for sonarquebe, html one are when devleopping without sonarqube.
 jacocoTestReport {
     reports {
         xml.enabled true
         csv.enabled false
         html.destination file("${buildDir}/jacocoHtml")
     }
+    //removing classes from jacoco coverage (html only)
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
@@ -111,4 +134,5 @@ jacocoTestReport {
     }
 }
 
-shadowJar.shouldRunAfter jar
+//this is to build the uber jar after the normal jar.
+tasks.build.dependsOn tasks.shadowJar
