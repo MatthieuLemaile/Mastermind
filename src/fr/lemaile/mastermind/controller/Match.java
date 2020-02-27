@@ -12,6 +12,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * This is the main game controller. It is able to control a match, and the whole game.
+ * It should be divided into a game controller, and a match controller
+ */
 public class Match implements BoardEventListener {
 
     public static final Random RANDOM = new Random();
@@ -97,6 +101,32 @@ public class Match implements BoardEventListener {
         mauvais = NB_PIN - (bienPlace + malPlace);
 
         //Create a list of bienPlace greeen element.
+        List<Color> result = createAnswer(bienPlace, malPlace, mauvais);
+
+        //update answers in matchData
+        matchData.getAnswers().set(matchData.getCurrentRow(), result);
+        //display answers
+        board.displayResultRow(matchData.getCurrentRow(), result);
+
+        updateRow();
+
+        //The else if here is to avoid that winning at the last attempts make a double message.
+        endGameCheck(bienPlace);
+    }
+
+    private void endGameCheck(int bienPlace) {
+        if (bienPlace == NB_PIN) {
+            board.showCombination(matchData.getCombination());
+            board.disableGUI();
+            board.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
+        } else if (matchData.getCurrentRow() == NB_POSSIBLE_ATTEMPTS) {
+            board.showCombination(matchData.getCombination());
+            board.disableGUI();
+            board.displayMessage("Perdu. Réessayez.");
+        }
+    }
+
+    private List<Color> createAnswer(int bienPlace, int malPlace, int mauvais) {
         List<Color> result = IntStream.range(0, bienPlace)
                 .mapToObj(i -> Color.GREEN)
                 .collect(Collectors.toList());
@@ -110,24 +140,7 @@ public class Match implements BoardEventListener {
         result.addAll(IntStream.range(0, mauvais)
                 .mapToObj(i -> Color.RED)
                 .collect(Collectors.toList()));
-
-        //update answers in matchData
-        matchData.getAnswers().set(matchData.getCurrentRow(), result);
-        //display answers
-        board.displayResultRow(matchData.getCurrentRow(), result);
-
-        updateRow();
-
-        //The else if here is to avoid that winning at the last attempts make a double message.
-        if (bienPlace == NB_PIN) {
-            board.showCombination(matchData.getCombination());
-            board.disableGUI();
-            board.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
-        } else if (matchData.getCurrentRow() == NB_POSSIBLE_ATTEMPTS) {
-            board.showCombination(matchData.getCombination());
-            board.disableGUI();
-            board.displayMessage("Perdu. Réessayez.");
-        }
+        return result;
     }
 
     @Override

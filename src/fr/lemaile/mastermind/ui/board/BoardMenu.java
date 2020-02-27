@@ -5,29 +5,30 @@ import fr.lemaile.mastermind.ui.ColorMapper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardMenu extends JPanel {
 
+    public static final Dimension COLOR_BUTTON_SIZE = new Dimension(50, 25);
+    public static final Dimension ACTION_BUTTON_SIZE = new Dimension(110, 30);
     private List<JButton> buttonColorList;
     private JButton buttonValidate = new JButton("Valider");
 
     public BoardMenu(List<Color> colorList, BoardEventListener eventListener) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel textChoice = new JLabel("Choix");
-        textChoice.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(textChoice);
+        add(getTextArea("Choix"));
         add(Box.createRigidArea(new Dimension(0, 19)));
 
         buttonColorList = new ArrayList<>(colorList.size());
         colorList.forEach(color -> {
             JButton colorElement = new JButton();
             colorElement.setAlignmentX(Component.CENTER_ALIGNMENT);
-            colorElement.setMinimumSize(new Dimension(50, 25));
-            colorElement.setMaximumSize(new Dimension(50, 25));
-            colorElement.setPreferredSize(new Dimension(50, 25));
+            colorElement.setMinimumSize(COLOR_BUTTON_SIZE);
+            colorElement.setMaximumSize(COLOR_BUTTON_SIZE);
+            colorElement.setPreferredSize(COLOR_BUTTON_SIZE);
             colorElement.setBackground(ColorMapper.mapToUi(color));
             colorElement.addActionListener(actionEvent -> eventListener.proposeColor(color));
             buttonColorList.add(colorElement);
@@ -35,23 +36,11 @@ public class BoardMenu extends JPanel {
             add(Box.createRigidArea(new Dimension(0, 5)));
         });
 
-        buttonValidate.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonValidate.setMinimumSize(new Dimension(110, 80));
-        buttonValidate.setMaximumSize(new Dimension(110, 80));
-        buttonValidate.setPreferredSize(new Dimension(110, 30));
-        buttonValidate.addActionListener(actionEvent -> eventListener.validateCombination());
         JButton buttonNew = new JButton("Nouveau");
-        buttonNew.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonNew.setMinimumSize(new Dimension(110, 80));
-        buttonNew.setMaximumSize(new Dimension(110, 80));
-        buttonNew.setPreferredSize(new Dimension(110, 30));
-        buttonNew.addActionListener(actionEvent -> eventListener.newMatch());
         JButton buttonLeave = new JButton("Quitter");
-        buttonLeave.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonLeave.setMinimumSize(new Dimension(110, 80));
-        buttonLeave.setMaximumSize(new Dimension(110, 80));
-        buttonLeave.setPreferredSize(new Dimension(110, 30));
-        buttonLeave.addActionListener(actionEvent -> eventListener.leaveGame());
+        initDefaultButton(buttonValidate, actionEvent -> eventListener.validateCombination());
+        initDefaultButton(buttonNew, actionEvent -> eventListener.newMatch());
+        initDefaultButton(buttonLeave, actionEvent -> eventListener.leaveGame());
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(buttonValidate);
@@ -61,15 +50,23 @@ public class BoardMenu extends JPanel {
         add(buttonLeave);
         add(Box.createRigidArea(new Dimension(0, 20)));
 
-        JLabel textAuthor = new JLabel("By Marc L.");
-        textAuthor.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(textAuthor);
-        JLabel creditMatthieuL = new JLabel("With Matthieu L");
-        creditMatthieuL.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(creditMatthieuL);
-        JLabel textVersion = new JLabel("v 1.2");
+        add(getTextArea("By Marc L."));
+        add(getTextArea("With Matthieu L"));
+        add(getTextArea("v 1.2"));
+    }
+
+    private JLabel getTextArea(String text) {
+        JLabel textVersion = new JLabel(text);
         textVersion.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(textVersion);
+        return textVersion;
+    }
+
+    private void initDefaultButton(JButton buttonNew, ActionListener actionListener) {
+        buttonNew.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonNew.setMinimumSize(ACTION_BUTTON_SIZE);
+        buttonNew.setMaximumSize(ACTION_BUTTON_SIZE);
+        buttonNew.setPreferredSize(ACTION_BUTTON_SIZE);
+        buttonNew.addActionListener(actionListener);
     }
 
     public void enableGameButton() {

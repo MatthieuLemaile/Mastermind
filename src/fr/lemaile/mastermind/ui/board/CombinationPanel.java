@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CombinationPanel extends JPanel {
 
+    public static final Dimension COMBINATION_ELEMENT_SIZE = new Dimension(10, 30);
     private List<JButton> combinationButton;
 
     public CombinationPanel(int nbPin) {
@@ -23,9 +24,9 @@ public class CombinationPanel extends JPanel {
         combinationButton = new ArrayList<>();
         for (int i = 0; i < nbPin; i++) {
             JButton combinationElement = new JButton();
-            combinationElement.setMinimumSize(new Dimension(10, 30));
-            combinationElement.setMaximumSize(new Dimension(10, 30));
-            combinationElement.setPreferredSize(new Dimension(10, 30));
+            combinationElement.setMinimumSize(COMBINATION_ELEMENT_SIZE);
+            combinationElement.setMaximumSize(COMBINATION_ELEMENT_SIZE);
+            combinationElement.setPreferredSize(COMBINATION_ELEMENT_SIZE);
             combinationElement.setBackground(Color.white);
             combinationElement.setEnabled(false);
             gridCombination.add(combinationElement, i);

@@ -1,6 +1,7 @@
 package fr.lemaile.mastermind.ui.board;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
@@ -30,8 +31,9 @@ public class Board extends JFrame {
 
         //PLUS
         Container principalContainer = getContentPane();
-        principalContainer.add("North", boardHeader);
-        principalContainer.add("Center", panelBody);
+        principalContainer.add(boardHeader, BorderLayout.PAGE_START);
+        principalContainer.add(panelBody, BorderLayout.CENTER);
+        panelBody.setBorder(new EmptyBorder(5, 5, 20, 5));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //LANCER PREMIERE PARTIE

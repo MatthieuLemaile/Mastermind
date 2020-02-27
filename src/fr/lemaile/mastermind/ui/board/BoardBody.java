@@ -9,29 +9,29 @@ import java.util.List;
 public class BoardBody extends JPanel {
 
     private CombinationPanel combinationPanel;
-    private BoardPropositionPanel propositionPanel;
-    private BoardValidationPanel validationPanel;
+    private GridPanel propositionPanel;
+    private GridPanel validationPanel;
 
     public BoardBody(int nbAttempts, int nbPin) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         //GRIDPR PANEL
-        JPanel panelGridPR = new JPanel(new FlowLayout(FlowLayout.CENTER, 35, 0));
+        JPanel gridsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 35, 0));
 
         // => PROPOSITION PANEL
-        propositionPanel = new BoardPropositionPanel(nbAttempts, nbPin);
-        panelGridPR.add(propositionPanel);
+        propositionPanel = new GridPanel(nbAttempts, nbPin, "Proposition");
+        gridsPanel.add(propositionPanel);
 
         // => RESULT PANEL
-        validationPanel = new BoardValidationPanel(nbAttempts, nbPin);
-        panelGridPR.add(validationPanel);
+        validationPanel = new GridPanel(nbAttempts, nbPin, "Résultat");
+        gridsPanel.add(validationPanel);
 
         //COMBINATION PANEL
         combinationPanel = new CombinationPanel(nbPin);
 
-        add(panelGridPR);
-        add(Box.createRigidArea(new Dimension(0, 10)));
         add(combinationPanel);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(gridsPanel);
         add(Box.createRigidArea(new Dimension(0, 10)));
     }
 
