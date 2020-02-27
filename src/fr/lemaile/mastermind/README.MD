@@ -17,6 +17,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ## Things to add
 
-* java module
-* java FX (in place of swing/awt)
+* java module (problem with java.awt imported from two modules.)
+* java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
 * Add 1st window menu with a lot of choosing options. how many balls ? how many colors ? how many attempts ?
