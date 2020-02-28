@@ -51,7 +51,7 @@ public class BoardMenu extends JPanel {
 
         add(getTextArea("By Marc L."));
         add(getTextArea("With Matthieu L"));
-        add(getTextArea("v 1.3"));
+        add(getTextArea("v 1.4 SNAPSHOT"));
     }
 
     private JLabel getTextArea(String text) {
