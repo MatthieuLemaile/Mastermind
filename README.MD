@@ -8,14 +8,19 @@ Actual version is 1.3
 
 JDK 1.11 is required.
 
-This project use maven to be build.
+This project use gradle to be built.
 
-To ensure you have correctly download the project, you may run "mvn clean install", and maven should be successfull.
+To ensure you have correctly download the project,
+you may run `gradle clean build`,
+and gradle should be successful.
 
-mvn sonar:sonar \
-  -Dsonar.projectKey=mastermind \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=fafb58396824116bc4b84c2a208050fde00b8bb4
+####Sonar
+Run sonar docker with docker run -d -p 9000:9000 sonarqube
+In your sonar (localhost:9000) log in with admin/admin,
+create a project following instructions,
+and update build.gradle with your project key.
+you can then run sonarqube with `gradle sonarqube`. 
+
 
 ## Authors
 
