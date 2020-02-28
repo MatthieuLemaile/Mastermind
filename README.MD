@@ -2,7 +2,7 @@
 
 This project is a mastermind in java. It has no real purpose other than learning some things in Java for me.
 
-Actual version is 1.3 
+Actual version is 1.3
 
 ## Installation
 
