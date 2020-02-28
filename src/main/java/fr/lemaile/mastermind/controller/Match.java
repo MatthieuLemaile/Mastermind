@@ -3,7 +3,7 @@ package fr.lemaile.mastermind.controller;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchData;
 import fr.lemaile.mastermind.model.MatchParameters;
-import fr.lemaile.mastermind.ui.board.Board;
+import fr.lemaile.mastermind.ui.board.BoardWindow;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ public class Match implements MatchEventListener {
 
     public static final Random RANDOM = new Random();
     private MatchData matchData;
-    private Board board;
+    private BoardWindow boardWindow;
     private final List<Color> possibleColors;
     private final GameEventListener gameListener;
 
@@ -28,7 +28,7 @@ public class Match implements MatchEventListener {
                 .filter(c -> c != Color.EMPTY)
                 .collect(Collectors.toList());
         initMatchData(matchParameters);
-        board = new Board(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
+        boardWindow = new BoardWindow(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
     }
 
     private void initMatchData(MatchParameters matchParameters) {
@@ -58,7 +58,7 @@ public class Match implements MatchEventListener {
     @Override
     public void leaveMatch() {
         //The user will wait a bit less for the window to close, event if all the background process are not terminated.
-        board.closeWindow();
+        boardWindow.closeWindow();
         gameListener.openMenu();
     }
 
@@ -97,7 +97,7 @@ public class Match implements MatchEventListener {
         //update answers in matchData
         matchData.getAnswers().set(matchData.getCurrentRow(), result);
         //display answers
-        board.displayResultRow(matchData.getCurrentRow(), result);
+        boardWindow.displayResultRow(matchData.getCurrentRow(), result);
 
         updateRow();
 
@@ -107,12 +107,12 @@ public class Match implements MatchEventListener {
 
     private void endGameCheck(int bienPlace) {
         if (bienPlace == matchData.getNbPin()) {
-            board.showCombination(matchData.getCombination());
-            board.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
+            boardWindow.showCombination(matchData.getCombination());
+            boardWindow.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
             this.leaveMatch();
         } else if (matchData.getCurrentRow() == matchData.getNbPossibleAttempts()) {
-            board.showCombination(matchData.getCombination());
-            board.displayMessage("Perdu. Réessayez.");
+            boardWindow.showCombination(matchData.getCombination());
+            boardWindow.displayMessage("Perdu. Réessayez.");
             this.leaveMatch();
         }
     }
@@ -138,11 +138,11 @@ public class Match implements MatchEventListener {
     public void proposeColor(Color color) {
         matchData.getPropositions().get(matchData.getCurrentRow()).set(matchData.getCurrentPin(), color);
         updateNumPin();
-        board.displayPropositionRow(matchData.getCurrentRow(), matchData.getPropositions().get(matchData.getCurrentRow()));
+        boardWindow.displayPropositionRow(matchData.getCurrentRow(), matchData.getPropositions().get(matchData.getCurrentRow()));
     }
 
     private void updateNumPin() {
-        matchData.setCurrentPin(matchData.getCurrentPin() == 4 ? 0 : matchData.getCurrentPin() + 1);
+        matchData.setCurrentPin(matchData.getCurrentPin() == matchData.getNbPin() - 1 ? 0 : matchData.getCurrentPin() + 1);
     }
 
     private void updateRow() {

@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 import static fr.lemaile.mastermind.ui.Constant.MENU_ACTION_BUTTON_SIZE;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class Menu {
+public class MenuWindow {
 
     private final JFrame menuFrame;
 
-    public Menu(GameEventListener gameEventListener) {
+    public MenuWindow(GameEventListener gameEventListener) {
 
         menuFrame = new JFrame();
 
@@ -23,6 +23,7 @@ public class Menu {
         JButton buttonNew = getButton("Nouveau match", actionEvent -> gameEventListener.startMatch());
         JButton buttonLeave = getButton("Leave game", actionEvent -> gameEventListener.exitGame());
         JButton buttonOption = getButton("Options", actionEvent -> gameEventListener.openOptions());
+        JButton buttonAbout = getButton("À propos", actionEvent -> gameEventListener.openAbout());
 
         JPanel menuBody = new JPanel();
         menuBody.setLayout(new BoxLayout(menuBody, BoxLayout.PAGE_AXIS));
@@ -30,6 +31,8 @@ public class Menu {
         menuBody.add(buttonNew);
         menuBody.add(Box.createRigidArea(new Dimension(0, 10)));
         menuBody.add(buttonOption);
+        menuBody.add(Box.createRigidArea(new Dimension(0, 10)));
+        menuBody.add(buttonAbout);
         menuBody.add(Box.createRigidArea(new Dimension(0, 10)));
         menuBody.add(buttonLeave);
 
@@ -40,10 +43,6 @@ public class Menu {
         menuFrame.pack();
         menuFrame.setLocationRelativeTo(menuFrame.getParent());
         menuFrame.setVisible(true);
-    }
-
-    public void closeWindow() {
-        menuFrame.dispose();
     }
 
     public void hide() {

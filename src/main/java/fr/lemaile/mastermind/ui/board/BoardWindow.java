@@ -16,12 +16,12 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 /* It is better to create a JFrame object inside, instead of extends it, especially for complex class.
  * Too much methods override. Safer code, as we expose only what's needed.
  */
-public class Board {
+public class BoardWindow {
 
     private BoardBody boardBody;
     private final JFrame boardFrame;
 
-    public Board(int nbPin, int nbAttempts, List<Color> colorList, MatchEventListener matchEventListener) {
+    public BoardWindow(int nbPin, int nbAttempts, List<Color> colorList, MatchEventListener matchEventListener) {
 
         boardFrame = new JFrame();
         //Base properties

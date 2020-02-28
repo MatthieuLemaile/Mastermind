@@ -3,6 +3,7 @@ package fr.lemaile.mastermind.ui.board;
 import fr.lemaile.mastermind.controller.MatchEventListener;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.ui.ColorMapper;
+import fr.lemaile.mastermind.ui.UiComponentsUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class BoardMenu extends JPanel {
     public BoardMenu(List<Color> colorList, MatchEventListener eventListener) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        add(getTextArea("Choix"));
+        add(UiComponentsUtils.getTextArea("Choix"));
         add(Box.createRigidArea(new Dimension(0, 19)));
 
         buttonColorList = new ArrayList<>(colorList.size());
@@ -48,16 +49,6 @@ public class BoardMenu extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(buttonLeave);
         add(Box.createRigidArea(new Dimension(0, 20)));
-
-        add(getTextArea("By Marc L."));
-        add(getTextArea("With Matthieu L"));
-        add(getTextArea("v 1.4 SNAPSHOT"));
-    }
-
-    private JLabel getTextArea(String text) {
-        JLabel textVersion = new JLabel(text);
-        textVersion.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return textVersion;
     }
 
     private void initDefaultButton(JButton button, ActionListener actionListener) {

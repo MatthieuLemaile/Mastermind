@@ -1,29 +1,35 @@
 package fr.lemaile.mastermind.controller;
 
 import fr.lemaile.mastermind.model.MatchParameters;
-import fr.lemaile.mastermind.ui.Menu;
+import fr.lemaile.mastermind.ui.MenuWindow;
 
 public class Game implements GameEventListener {
-    private Menu menu;
+    private MenuWindow menuWindow;
     private MatchParameters matchParameters;
 
     public Game() {
-        menu = new Menu(this);
+        menuWindow = new MenuWindow(this);
         matchParameters = new MatchParameters();
         matchParameters.setCanChooseSameColor(true);
-        matchParameters.setNbPin(5);
-        matchParameters.setNbPossibleAttempts(12);
+        matchParameters.setNbPin(4);
+        matchParameters.setNbPossibleAttempts(10);
     }
 
     @Override
     public void openMenu() {
-        menu.show();
+        menuWindow.show();
     }
 
     @Override
     public void openOptions() {
         new Option(matchParameters, this);
-        menu.hide();
+        menuWindow.hide();
+    }
+
+    @Override
+    public void openAbout() {
+        new About(this);
+        menuWindow.hide();
     }
 
     @Override
@@ -34,6 +40,6 @@ public class Game implements GameEventListener {
     @Override
     public void startMatch() {
         new Match(matchParameters, this);
-        menu.hide();
+        menuWindow.hide();
     }
 }

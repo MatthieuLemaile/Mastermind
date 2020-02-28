@@ -28,7 +28,7 @@ public class OptionBody extends JPanel {
         buttonLeave.addActionListener(actionEvent -> optionEventListener.closeOption());
 
         this.add(colorDuplicate);
-        this.add(Box.createRigidArea(new Dimension(0, 20)));
+        this.add(Box.createRigidArea(new Dimension(0, 15)));
         this.add(buttonLeave);
     }
 }
