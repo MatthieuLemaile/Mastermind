@@ -19,7 +19,10 @@ Run sonar docker with docker run -d -p 9000:9000 sonarqube
 In your sonar (localhost:9000) log in with admin/admin,
 create a project following instructions,
 and update build.gradle with your project key.
-you can then run sonarqube with `gradle sonarqube`. 
+you can then run sonarqube with :
+```shell script
+gradle build jacocoTestReport sonarqube
+``` 
 
 
 ## Authors
@@ -39,4 +42,16 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * Move Credit from in-game menu to a dedicated "credit" part, accessible via an "à propos" option in main menu
 * Add a rules option in main menu, with a part with some tips. (Like make a combination that can be same result as previous one, if no green nor orange in result => no more color, ... ?)
 * Ask Marc : save highscore ? In this case we'll need file writing, Nio2. With times maybe ?
-* Add Jacoco to code coverage.
+* What configuration is needed for sonarqube server to pick up jacoco result ?
+
+## Release History
+
+####1.4
+
+####1.3
+* Added a main menu
+* Added an option panel to choose if the solution can reuse colors.
+
+####1.2
+* move solution in top of the game panel
+* Fix bug, right in max attempts possible would lead to both loose and win.
