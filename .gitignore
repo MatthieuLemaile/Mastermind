@@ -11,3 +11,6 @@
 #compile
 bin/
 out/
+
+#maven
+target/

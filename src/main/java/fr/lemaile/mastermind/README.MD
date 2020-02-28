@@ -6,7 +6,16 @@ Actual version is 1.3
 
 ## Installation
 
-JDK 1.11 is required. Nothing else.
+JDK 1.11 is required.
+
+This project use maven to be build.
+
+To ensure you have correctly download the project, you may run "mvn clean install", and maven should be successfull.
+
+mvn sonar:sonar \
+  -Dsonar.projectKey=mastermind \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=fafb58396824116bc4b84c2a208050fde00b8bb4
 
 ## Authors
 
