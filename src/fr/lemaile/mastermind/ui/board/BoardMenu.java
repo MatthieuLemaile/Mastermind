@@ -1,6 +1,6 @@
 package fr.lemaile.mastermind.ui.board;
 
-import fr.lemaile.mastermind.controller.BoardEventListener;
+import fr.lemaile.mastermind.controller.MatchEventListener;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.ui.ColorMapper;
 
@@ -19,7 +19,7 @@ public class BoardMenu extends JPanel {
     private List<JButton> buttonColorList;
     private JButton buttonValidate = new JButton("Valider");
 
-    public BoardMenu(List<Color> colorList, BoardEventListener eventListener) {
+    public BoardMenu(List<Color> colorList, MatchEventListener eventListener) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(getTextArea("Choix"));

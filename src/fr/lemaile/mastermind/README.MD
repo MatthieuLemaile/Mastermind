@@ -21,6 +21,7 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 * java module (problem with java.awt imported from two modules.)
 * java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
-* Add option window menu with a lot of choosing options. how many balls ? how many colors ? how many attempts ?
+* Add options. How many balls (not more than colors) ? how many colors (not more than max available) ? how many attempts ? Maybe helpfull calc to compute how much attempts min you need.
 * Move Credit from in-game menu to a dedicated "credit" part, accessible via an "à propos" option in main menu
 * Add a rules option in main menu, with a part with some tips. (Like make a combination that can be same result as previous one, if no green nor orange in result => no more color, ... ?)
+* Ask Marc : save highscore ? In this case we'll need file writing, Nio2. With times maybe ?

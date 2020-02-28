@@ -1,6 +1,6 @@
 package fr.lemaile.mastermind.ui.board;
 
-import fr.lemaile.mastermind.controller.BoardEventListener;
+import fr.lemaile.mastermind.controller.MatchEventListener;
 import fr.lemaile.mastermind.model.Color;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class Board extends JFrame {
     private BoardBody boardBody;
     private BoardMenu boardMenu;
 
-    public Board(int nbPin, int nbAttempts, List<Color> colorList, BoardEventListener boardEventListener) {
+    public Board(int nbPin, int nbAttempts, List<Color> colorList, MatchEventListener matchEventListener) {
 
         //Base properties
         setTitle("MASTERMIND");
@@ -28,7 +28,7 @@ public class Board extends JFrame {
         JPanel panelBody = new JPanel(new FlowLayout(FlowLayout.CENTER, 35, 0));
 
         //MENU
-        boardMenu = new BoardMenu(colorList, boardEventListener);
+        boardMenu = new BoardMenu(colorList, matchEventListener);
         panelBody.add(boardMenu);
 
         //GRID PANEL

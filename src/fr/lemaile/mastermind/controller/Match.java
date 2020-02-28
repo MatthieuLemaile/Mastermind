@@ -2,12 +2,10 @@ package fr.lemaile.mastermind.controller;
 
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchData;
+import fr.lemaile.mastermind.model.MatchParameters;
 import fr.lemaile.mastermind.ui.board.Board;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -15,41 +13,46 @@ import java.util.stream.IntStream;
  * This is the main game controller. It is able to control a match, and the whole game.
  * It should be divided into a game controller, and a match controller
  */
-public class Match implements BoardEventListener {
+public class Match implements MatchEventListener {
 
     public static final Random RANDOM = new Random();
     private MatchData matchData;
     private Board board;
-    private List<Color> possibleColors;
+    private final List<Color> possibleColors;
     private final GameEventListener gameListener;
 
-    public Match(int nbPin, int nbPossibleAttempts, GameEventListener gameListener) {
+    public Match(MatchParameters matchParameters, GameEventListener gameListener) {
         this.gameListener = gameListener;
-        initMatchData(nbPin, nbPossibleAttempts);
-        initMainBoardUI();
-        board.showCombination(matchData.getCombination());
-    }
-
-    private void initMatchData(int nbPin, int nbPossibleAttempts) {
-        matchData = new MatchData(nbPin, nbPossibleAttempts);
-
-        //create combination
-        possibleColors = Arrays.stream(Color.values())
+        this.possibleColors = Arrays.stream(Color.values())
                 //remove "empty" color
                 .filter(c -> c != Color.EMPTY)
                 .collect(Collectors.toList());
-        pickCombination();
-    }
-
-    private void pickCombination() {
-        List<Color> combination = IntStream.range(0, matchData.getNbPin())
-                .mapToObj(i -> possibleColors.get(RANDOM.nextInt(possibleColors.size())))
-                .collect(Collectors.toList());
-        matchData.setCombination(combination);
-    }
-
-    private void initMainBoardUI() {
+        initMatchData(matchParameters);
         board = new Board(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
+    }
+
+    private void initMatchData(MatchParameters matchParameters) {
+        matchData = new MatchData(matchParameters.getNbPin(), matchParameters.getNbPossibleAttempts());
+        //create combination
+        pickCombination(matchParameters.isCanChooseSameColor());
+    }
+
+    private void pickCombination(boolean canChooseSameColor) {
+        //Avoid touching at the original collection
+        List<Color> toBeChoosen = new ArrayList<>(possibleColors);
+        Collections.shuffle(toBeChoosen);
+
+        List<Color> combination;
+        if (canChooseSameColor) {
+            combination = IntStream.range(0, matchData.getNbPin())
+                    .mapToObj(i -> toBeChoosen.get(RANDOM.nextInt(toBeChoosen.size())))
+                    .collect(Collectors.toList());
+        } else {
+            combination = IntStream.range(0, matchData.getNbPin())
+                    .mapToObj(toBeChoosen::get)
+                    .collect(Collectors.toList());
+        }
+        matchData.setCombination(combination);
     }
 
     @Override

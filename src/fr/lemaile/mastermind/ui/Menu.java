@@ -15,11 +15,14 @@ public class Menu extends JFrame {
 
         JButton buttonNew = getButton("Nouveau match", actionEvent -> gameEventListener.startMatch());
         JButton buttonLeave = getButton("Leave game", actionEvent -> gameEventListener.exitGame());
+        JButton buttonOption = getButton("Options", actionEvent -> gameEventListener.openOptions());
 
         JPanel menuBody = new JPanel();
         menuBody.setLayout(new BoxLayout(menuBody, BoxLayout.PAGE_AXIS));
         menuBody.setBorder(new EmptyBorder(10, 10, 10, 10));
         menuBody.add(buttonNew);
+        menuBody.add(Box.createRigidArea(new Dimension(0, 10)));
+        menuBody.add(buttonOption);
         menuBody.add(Box.createRigidArea(new Dimension(0, 10)));
         menuBody.add(buttonLeave);
 
