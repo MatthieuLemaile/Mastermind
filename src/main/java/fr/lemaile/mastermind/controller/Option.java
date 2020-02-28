@@ -22,7 +22,7 @@ public class Option implements OptionEventListener {
 
     @Override
     public void closeOption() {
-        optionWindow.dispose();
+        optionWindow.closeWindow();
         gameEventListener.openMenu();
     }
 }

@@ -58,7 +58,7 @@ public class Match implements MatchEventListener {
     @Override
     public void leaveMatch() {
         //The user will wait a bit less for the window to close, event if all the background process are not terminated.
-        board.dispose();
+        board.closeWindow();
         gameListener.openMenu();
     }
 

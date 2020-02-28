@@ -17,13 +17,13 @@ public class Game implements GameEventListener {
 
     @Override
     public void openMenu() {
-        menu.setVisible(true);
+        menu.show();
     }
 
     @Override
     public void openOptions() {
         new Option(matchParameters, this);
-        menu.setVisible(false);
+        menu.hide();
     }
 
     @Override
@@ -34,6 +34,6 @@ public class Game implements GameEventListener {
     @Override
     public void startMatch() {
         new Match(matchParameters, this);
-        menu.setVisible(false);
+        menu.hide();
     }
 }

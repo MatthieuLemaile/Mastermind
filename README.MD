@@ -8,7 +8,7 @@ Actual version is 1.3
 
 JDK 1.11 is required.
 
-This project use gradle to be built.
+This project use gradle to be built, and Git for version control.
 
 To ensure you have correctly download the project,
 you may run `gradle clean build`,
@@ -39,3 +39,4 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * Move Credit from in-game menu to a dedicated "credit" part, accessible via an "à propos" option in main menu
 * Add a rules option in main menu, with a part with some tips. (Like make a combination that can be same result as previous one, if no green nor orange in result => no more color, ... ?)
 * Ask Marc : save highscore ? In this case we'll need file writing, Nio2. With times maybe ?
+* Add Jacoco to code coverage.

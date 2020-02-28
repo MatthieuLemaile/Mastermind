@@ -8,18 +8,24 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+
 /**
  * This class represent the main game window.
  */
-public class Board extends JFrame {
+/* It is better to create a JFrame object inside, instead of extends it, especially for complex class.
+ * Too much methods override. Safer code, as we expose only what's needed.
+ */
+public class Board {
 
     private BoardBody boardBody;
-    private BoardMenu boardMenu;
+    private final JFrame boardFrame;
 
     public Board(int nbPin, int nbAttempts, List<Color> colorList, MatchEventListener matchEventListener) {
 
+        boardFrame = new JFrame();
         //Base properties
-        setTitle("MASTERMIND");
+        boardFrame.setTitle("MASTERMIND");
 
         //HEADER
         BoardHeader boardHeader = new BoardHeader();
@@ -28,7 +34,7 @@ public class Board extends JFrame {
         JPanel panelBody = new JPanel(new FlowLayout(FlowLayout.CENTER, 35, 0));
 
         //MENU
-        boardMenu = new BoardMenu(colorList, matchEventListener);
+        BoardMenu boardMenu = new BoardMenu(colorList, matchEventListener);
         panelBody.add(boardMenu);
 
         //GRID PANEL
@@ -36,16 +42,20 @@ public class Board extends JFrame {
         panelBody.add(boardBody);
 
         //PLUS
-        Container principalContainer = getContentPane();
+        Container principalContainer = boardFrame.getContentPane();
         principalContainer.add(boardHeader, BorderLayout.PAGE_START);
         principalContainer.add(panelBody, BorderLayout.CENTER);
         panelBody.setBorder(new EmptyBorder(5, 5, 20, 5));
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        boardFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         //LANCER PREMIERE PARTIE
-        pack();
-        setLocationRelativeTo(getParent());
-        setVisible(true);
+        boardFrame.pack();
+        boardFrame.setLocationRelativeTo(boardFrame.getParent());
+        boardFrame.setVisible(true);
+    }
+
+    public void closeWindow() {
+        boardFrame.dispose();
     }
 
     public void displayMessage(String message) {
