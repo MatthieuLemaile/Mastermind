@@ -14,9 +14,9 @@ apply plugin: 'jacoco'
 
 sonarqube {
     properties {
-        property "sonar.projectName", "Mastermind"
-        //Change this to be the one of your sonar project.
-        property "sonar.projectKey", "bd69b19d4d24b9780e8c946e402e5a0cee2b89a4"
+        property "sonar.projectKey", "Mastermind"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "5f16dadac80fbd3663dda9f99e2bf487f1269351"
     }
 }
 
@@ -77,6 +77,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
+                    'fr/lemaile/mastermind/ui/about**',
                     'fr/lemaile/mastermind/ui/board**',
                     'fr/lemaile/mastermind/ui/option**',
                     'fr/lemaile/mastermind/ui/Constant**',
