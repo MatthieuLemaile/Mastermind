@@ -13,10 +13,21 @@ apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 
 sonarqube {
+
     properties {
         property "sonar.projectKey", "Mastermind"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.login", "5f16dadac80fbd3663dda9f99e2bf487f1269351"
+        property "sonar.login", "5b3ed4d06fc538ccf8cd687e445aed4c3c8d6675" //EXC
+//        property "sonar.login", "5f16dadac80fbd3663dda9f99e2bf487f1269351" //PER
+        property "sonar.jacoco.reportPath", "build/jacoco/test.exec"
+        property 'sonar.coverage.exclusions', [
+                "**/mastermind/ui/about/**/*",
+                "**/mastermind/ui/board/**/*",
+                "**/mastermind/ui/option/**/*",
+                "**/mastermind/ui/Constant/**/*",
+                "**/mastermind/AppMain*",
+                "**/mastermind/ui/Menu*",
+                "**/mastermind/ui/UiComponentsUtils.java"]
     }
 }
 
@@ -57,6 +68,8 @@ test {
 
 dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+//    testCompile "org.mockito:mockito-core:2.+"
+    testCompile "org.mockito:mockito-junit-jupiter:2.+"
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
 }
 
@@ -81,7 +94,9 @@ jacocoTestReport {
                     'fr/lemaile/mastermind/ui/board**',
                     'fr/lemaile/mastermind/ui/option**',
                     'fr/lemaile/mastermind/ui/Constant**',
-                    'fr/lemaile/mastermind/ui/Menu**',
+                    'fr/lemaile/mastermind/ui/Menu*',
+                    'fr/lemaile/mastermind/AppMain*',
+                    'fr/lemaile/mastermind/ui/UiComponentsUtils*',
             ])
         })
     }

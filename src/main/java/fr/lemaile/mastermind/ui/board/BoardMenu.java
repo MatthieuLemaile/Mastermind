@@ -7,55 +7,32 @@ import fr.lemaile.mastermind.ui.UiComponentsUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import static fr.lemaile.mastermind.ui.Constant.ACTION_BUTTON_SIZE;
-import static fr.lemaile.mastermind.ui.Constant.COLOR_BUTTON_SIZE;
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.*;
 
 public class BoardMenu extends JPanel {
-
-
-    private List<JButton> buttonColorList;
-    private JButton buttonValidate = new JButton("Valider");
 
     public BoardMenu(List<Color> colorList, MatchEventListener eventListener) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        add(UiComponentsUtils.getTextArea("Choix"));
+        add(getTextArea("Choix"));
         add(Box.createRigidArea(new Dimension(0, 19)));
 
-        buttonColorList = new ArrayList<>(colorList.size());
         colorList.forEach(color -> {
-            JButton colorElement = new JButton();
-            colorElement.setAlignmentX(Component.CENTER_ALIGNMENT);
-            colorElement.setMinimumSize(COLOR_BUTTON_SIZE);
-            colorElement.setMaximumSize(COLOR_BUTTON_SIZE);
-            colorElement.setPreferredSize(COLOR_BUTTON_SIZE);
+            JButton colorElement = createButton(null, COLOR_BUTTON_SIZE, actionEvent -> eventListener.proposeColor(color));
             colorElement.setBackground(ColorMapper.mapToUi(color));
-            colorElement.addActionListener(actionEvent -> eventListener.proposeColor(color));
-            buttonColorList.add(colorElement);
             add(colorElement);
             add(Box.createRigidArea(new Dimension(0, 5)));
         });
 
-        JButton buttonLeave = new JButton("Quitter");
-        initDefaultButton(buttonValidate, actionEvent -> eventListener.validateCombination());
-        initDefaultButton(buttonLeave, actionEvent -> eventListener.leaveMatch());
+        JButton buttonValidate = UiComponentsUtils.createButton("Validate", ACTION_BUTTON_SIZE, actionEvent -> eventListener.validateCombination());
+        JButton buttonLeave = UiComponentsUtils.createButton("Quitter", ACTION_BUTTON_SIZE, actionEvent -> eventListener.leaveMatch());
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(buttonValidate);
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(buttonLeave);
         add(Box.createRigidArea(new Dimension(0, 20)));
-    }
-
-    private void initDefaultButton(JButton button, ActionListener actionListener) {
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMinimumSize(ACTION_BUTTON_SIZE);
-        button.setMaximumSize(ACTION_BUTTON_SIZE);
-        button.setPreferredSize(ACTION_BUTTON_SIZE);
-        button.addActionListener(actionListener);
     }
 }

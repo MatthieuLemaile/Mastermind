@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-import static fr.lemaile.mastermind.ui.Constant.MENU_ACTION_BUTTON_SIZE;
-import static fr.lemaile.mastermind.ui.UiComponentsUtils.getTextArea;
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class AboutWindow {
@@ -22,12 +21,7 @@ public class AboutWindow {
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.PAGE_AXIS));
         aboutPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        JButton buttonLeave = new JButton("Menu");
-        buttonLeave.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonLeave.setMinimumSize(MENU_ACTION_BUTTON_SIZE);
-        buttonLeave.setMaximumSize(MENU_ACTION_BUTTON_SIZE);
-        buttonLeave.setPreferredSize(MENU_ACTION_BUTTON_SIZE);
-        buttonLeave.addActionListener(actionEvent -> aboutEventListener.closeAbout());
+        JButton buttonLeave = createButton("Menu", MENU_ACTION_BUTTON_SIZE, actionEvent -> aboutEventListener.closeAbout());
 
         aboutPanel.add(getTextArea("By Marc L."));
         aboutPanel.add(Box.createRigidArea(new Dimension(0, 5)));

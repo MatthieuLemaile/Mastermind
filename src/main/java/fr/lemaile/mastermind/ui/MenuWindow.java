@@ -5,9 +5,9 @@ import fr.lemaile.mastermind.controller.GameEventListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-import static fr.lemaile.mastermind.ui.Constant.MENU_ACTION_BUTTON_SIZE;
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.MENU_ACTION_BUTTON_SIZE;
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.createButton;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class MenuWindow {
@@ -20,10 +20,10 @@ public class MenuWindow {
 
         menuFrame.setTitle("Mastermind - menu");
 
-        JButton buttonNew = getButton("Nouveau match", actionEvent -> gameEventListener.startMatch());
-        JButton buttonLeave = getButton("Leave game", actionEvent -> gameEventListener.exitGame());
-        JButton buttonOption = getButton("Options", actionEvent -> gameEventListener.openOptions());
-        JButton buttonAbout = getButton("À propos", actionEvent -> gameEventListener.openAbout());
+        JButton buttonNew = createButton("Nouveau match", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.startMatch());
+        JButton buttonLeave = createButton("Leave game", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.exitGame());
+        JButton buttonOption = createButton("Options", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.openOptions());
+        JButton buttonAbout = createButton("À propos", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.openAbout());
 
         JPanel menuBody = new JPanel();
         menuBody.setLayout(new BoxLayout(menuBody, BoxLayout.PAGE_AXIS));
@@ -51,15 +51,5 @@ public class MenuWindow {
 
     public void show() {
         menuFrame.setVisible(true);
-    }
-
-    private JButton getButton(String text, ActionListener actionListener) {
-        JButton buttonLeave = new JButton(text);
-        buttonLeave.setAlignmentX(Component.CENTER_ALIGNMENT);
-        buttonLeave.setMinimumSize(MENU_ACTION_BUTTON_SIZE);
-        buttonLeave.setMaximumSize(MENU_ACTION_BUTTON_SIZE);
-        buttonLeave.setPreferredSize(MENU_ACTION_BUTTON_SIZE);
-        buttonLeave.addActionListener(actionListener);
-        return buttonLeave;
     }
 }

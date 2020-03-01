@@ -5,21 +5,23 @@ import fr.lemaile.mastermind.model.MatchParameters;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class OptionWindow {
 
     private final JFrame optionFrame;
+    private final OptionBody optionBody;
 
-    public OptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener) {
+    public OptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible) {
 
         optionFrame = new JFrame();
         optionFrame.setTitle("Mastermind - options");
 
-        OptionBody body = new OptionBody(matchParameters, optionEventListener);
+        optionBody = new OptionBody(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible);
 
-        optionFrame.getContentPane().add(body, BorderLayout.CENTER);
+        optionFrame.getContentPane().add(optionBody, BorderLayout.CENTER);
         optionFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         optionFrame.pack();
         optionFrame.setLocationRelativeTo(optionFrame.getParent());
@@ -28,5 +30,15 @@ public class OptionWindow {
 
     public void closeWindow() {
         optionFrame.dispose();
+    }
+
+    public void displayError(String errorMessage) {
+        optionBody.displayError(errorMessage);
+        optionFrame.pack();
+    }
+
+    public void hideError() {
+        optionBody.hideError();
+        optionFrame.pack();
     }
 }

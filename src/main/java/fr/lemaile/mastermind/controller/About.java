@@ -8,13 +8,23 @@ public class About implements AboutEventListener {
     private AboutWindow aboutWindow;
 
     public About(GameEventListener gameEventListener) {
+        this(gameEventListener, new FactoryHelper());
+    }
+
+    public About(GameEventListener gameEventListener, FactoryHelper factoryHelper) {
         this.gameEventListener = gameEventListener;
-        this.aboutWindow = new AboutWindow(this);
+        this.aboutWindow = factoryHelper.makeAboutWindow(this);
     }
 
     @Override
     public void closeAbout() {
         aboutWindow.closeWindow();
         gameEventListener.openMenu();
+    }
+
+    static class FactoryHelper {
+        public AboutWindow makeAboutWindow(AboutEventListener aboutEventListener) {
+            return new AboutWindow(aboutEventListener);
+        }
     }
 }

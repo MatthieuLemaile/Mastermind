@@ -22,13 +22,18 @@ public class Match implements MatchEventListener {
     private final GameEventListener gameListener;
 
     public Match(MatchParameters matchParameters, GameEventListener gameListener) {
+        this(matchParameters, gameListener, new FactoryHelper());
+    }
+
+    public Match(MatchParameters matchParameters, GameEventListener gameListener, FactoryHelper factoryHelper) {
         this.gameListener = gameListener;
         this.possibleColors = Arrays.stream(Color.values())
                 //remove "empty" color
                 .filter(c -> c != Color.EMPTY)
+                .limit(matchParameters.getNumberOfPossibleColors())
                 .collect(Collectors.toList());
         initMatchData(matchParameters);
-        boardWindow = new BoardWindow(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
+        boardWindow = factoryHelper.makeBoardWindow(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
     }
 
     private void initMatchData(MatchParameters matchParameters) {
@@ -150,4 +155,9 @@ public class Match implements MatchEventListener {
         matchData.setCurrentPin(0);
     }
 
+    static class FactoryHelper {
+        public BoardWindow makeBoardWindow(int nbPin, int nbPossibleAttempts, List<Color> possibleColors, MatchEventListener matchEventListener){
+            return new BoardWindow(nbPin, nbPossibleAttempts, possibleColors, matchEventListener);
+        }
+    }
 }
