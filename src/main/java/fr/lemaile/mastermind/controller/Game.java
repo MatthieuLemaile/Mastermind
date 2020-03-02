@@ -33,6 +33,7 @@ public class Game implements GameEventListener {
 
     @Override
     public void openOptions() {
+        option.openOption();
         menuWindow.hide();
     }
 

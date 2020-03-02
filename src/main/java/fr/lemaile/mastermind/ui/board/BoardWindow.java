@@ -6,6 +6,8 @@ import fr.lemaile.mastermind.model.Color;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -26,6 +28,12 @@ public class BoardWindow {
         boardFrame = new JFrame();
         //Base properties
         boardFrame.setTitle("MASTERMIND");
+        boardFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                matchEventListener.leaveMatch();
+            }
+        });
 
         //HEADER
         BoardHeader boardHeader = new BoardHeader();

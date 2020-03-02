@@ -45,12 +45,16 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ## Things to add
 
-* java module (problem with java.awt imported from two modules.) ?
-* Bug : closing sub window does not stop app, nor bring back menu.
 * GitHub Publish ?
+#### 1.5
+* Add real logging
 * Create interface between controller and UI.
+* Add options. How many balls (not more than colors) ?
+#### 1.6 
 * java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
-* Add options. How many balls (not more than colors) ? 
+
+#### backlog
+* java module (problem with java.awt imported from two modules.) ?
 * UComponentUtils should be a factory / builder, see which pattern is relevant
 * Ask Marc : save highscores ? In this case we'll need file writing, Nio2. With times maybe ?
 * i18n ?
@@ -63,6 +67,7 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ####1.4
 * Moved Credit from in-game menu to a dedicated "à propos" part, accessible via an "À propos" option in main menu
 * Fix bug for setting a different number of pin would crash if try to re-choose colors of the attempt.
+* Fix Bug : game still in background after closing sub menu window (match/option/about)
 
 ####1.3
 * Added a main menu

@@ -5,6 +5,8 @@ import fr.lemaile.mastermind.model.MatchParameters;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -18,6 +20,12 @@ public class OptionWindow {
 
         optionFrame = new JFrame();
         optionFrame.setTitle("Mastermind - options");
+        optionFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                optionEventListener.closeOption();
+            }
+        });
 
         optionBody = new OptionBody(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible);
 

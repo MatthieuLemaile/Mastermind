@@ -12,6 +12,7 @@ public class Option implements OptionEventListener {
     private final GameEventListener gameEventListener;
     private MatchParameters matchParameters;
     private OptionWindow optionWindow;
+    private FactoryHelper factoryHelper;
 
     public Option(MatchParameters matchParameters, GameEventListener gameEventListener) {
         this(matchParameters, gameEventListener, new FactoryHelper());
@@ -20,9 +21,8 @@ public class Option implements OptionEventListener {
     public Option(MatchParameters matchParameters, GameEventListener gameEventListener, FactoryHelper factoryHelper) {
         this.gameEventListener = gameEventListener;
         this.matchParameters = matchParameters;
-        List<Integer> numberOfColorPossible = IntStream.range(1, matchParameters.getNumberOfPossibleColors()+1).boxed().collect(Collectors.toList());
-        List<Integer> listOfPossibleAttempts = IntStream.range(1, 21).boxed().collect(Collectors.toList());
-        this.optionWindow = factoryHelper.makeOptionWindow(matchParameters, this, listOfPossibleAttempts, numberOfColorPossible);
+        this.factoryHelper = factoryHelper;
+        openOption();
     }
 
     @Override
@@ -48,8 +48,14 @@ public class Option implements OptionEventListener {
         gameEventListener.openMenu();
     }
 
-    private void checkIncompatibilities(){
-        if(matchParametersError()){
+    public void openOption() {
+        List<Integer> numberOfColorPossible = IntStream.range(1, matchParameters.getNumberOfPossibleColors() + 1).boxed().collect(Collectors.toList());
+        List<Integer> listOfPossibleAttempts = IntStream.range(1, 21).boxed().collect(Collectors.toList());
+        this.optionWindow = factoryHelper.makeOptionWindow(matchParameters, this, listOfPossibleAttempts, numberOfColorPossible);
+    }
+
+    private void checkIncompatibilities() {
+        if (matchParametersError()) {
             optionWindow.displayError("Vous ne pouvez avoir plus de case que de couleur si vous ne pouvez avoir plusieurs fois la même couleur.");
         } else {
             optionWindow.hideError();

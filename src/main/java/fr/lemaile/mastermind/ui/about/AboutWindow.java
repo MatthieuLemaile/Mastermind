@@ -5,6 +5,8 @@ import fr.lemaile.mastermind.controller.AboutEventListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import static fr.lemaile.mastermind.ui.UiComponentsUtils.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -16,6 +18,12 @@ public class AboutWindow {
     public AboutWindow(AboutEventListener aboutEventListener) {
         aboutFrame = new JFrame();
         aboutFrame.setTitle("Mastermind - about");
+        aboutFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                aboutEventListener.closeAbout();
+            }
+        });
 
         JPanel aboutPanel = new JPanel();
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.PAGE_AXIS));
