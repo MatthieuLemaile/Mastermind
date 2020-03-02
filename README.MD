@@ -45,7 +45,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ## Things to add
 
-* GitHub Publish ?
 #### 1.5
 * Add real logging
 * Create interface between controller and UI.
