@@ -2,7 +2,7 @@
 
 This project is a mastermind in java. It has no real purpose other than learning some things in Java for me.
 
-Actual version is 1.4
+Actual version is 1.5
 
 ## Installation
 
@@ -62,6 +62,8 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * Option => calculator to compute how much attempts min you need.
 
 ## Release History
+
+####1.5
 
 ####1.4
 * Moved Credit from in-game menu to a dedicated "à propos" part, accessible via an "À propos" option in main menu
