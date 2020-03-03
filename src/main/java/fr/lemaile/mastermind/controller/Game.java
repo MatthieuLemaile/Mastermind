@@ -4,31 +4,34 @@ package fr.lemaile.mastermind.controller;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchParameters;
 import fr.lemaile.mastermind.ui.MenuWindow;
+import fr.lemaile.mastermind.ui.UiFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Game implements GameEventListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
+    private final UiFactory uiFactory;
     private MenuWindow menuWindow;
     private MatchParameters matchParameters;
     private Option option;
     private FactoryHelper factoryHelper;
 
-    public Game() {
-        this(new FactoryHelper());
+    public Game(UiFactory uiFactory) {
+        this(uiFactory, new FactoryHelper());
     }
 
-    public Game(FactoryHelper factoryHelper) {
+    public Game(UiFactory uiFactory, FactoryHelper factoryHelper) {
+        this.uiFactory = uiFactory;
         LOGGER.trace("Initialising Game");
         this.factoryHelper = factoryHelper;
-        this.menuWindow = factoryHelper.makeMenuWindow(this);
+        this.menuWindow = uiFactory.createMenuWindow(this);
         matchParameters = new MatchParameters();
         matchParameters.setCanChooseSameColor(true);
         matchParameters.setNbPin(5);
         matchParameters.setNbPossibleAttempts(12);
-        matchParameters.setNumberOfPossibleColors(Color.values().length-1);
-        option = factoryHelper.makeOption(matchParameters, this);
+        matchParameters.setNumberOfPossibleColors(Color.values().length - 1);
+        option = factoryHelper.makeOption(matchParameters, this, uiFactory);
         option.closeOption();
         LOGGER.info("Game initialised");
     }
@@ -49,7 +52,7 @@ public class Game implements GameEventListener {
     @Override
     public void openAbout() {
         LOGGER.trace("Open about");
-        factoryHelper.makeAbout(this);
+        factoryHelper.makeAbout(this, uiFactory);
         menuWindow.hide();
     }
 
@@ -66,26 +69,22 @@ public class Game implements GameEventListener {
             LOGGER.error("Number of color/pin and color reusage inconsistent");
             //display this to user.
         } else {
-            factoryHelper.makeMatch(matchParameters, this);
+            factoryHelper.makeMatch(matchParameters, this, uiFactory);
             menuWindow.hide();
         }
     }
 
     static class FactoryHelper {
-        public MenuWindow makeMenuWindow(GameEventListener gameEventListener){
-            return new MenuWindow(gameEventListener);
+        public Option makeOption(MatchParameters matchParameters, GameEventListener gameEventListener, UiFactory uiFactory) {
+            return new Option(matchParameters, gameEventListener, uiFactory);
         }
 
-        public Option makeOption(MatchParameters matchParameters, GameEventListener gameEventListener){
-            return new Option(matchParameters, gameEventListener);
+        public About makeAbout(GameEventListener gameEventListener, UiFactory uiFactory) {
+            return new About(gameEventListener, uiFactory);
         }
 
-        public About makeAbout(GameEventListener gameEventListener){
-            return new About(gameEventListener);
-        }
-
-        public Match makeMatch(MatchParameters matchParameters, GameEventListener gameEventListener){
-            return new Match(matchParameters, gameEventListener);
+        public Match makeMatch(MatchParameters matchParameters, GameEventListener gameEventListener, UiFactory uiFactory) {
+            return new Match(matchParameters, gameEventListener, uiFactory);
         }
     }
 }

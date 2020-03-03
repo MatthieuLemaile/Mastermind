@@ -3,6 +3,7 @@ package fr.lemaile.mastermind.controller;
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchData;
 import fr.lemaile.mastermind.model.MatchParameters;
+import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.board.BoardWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,16 +20,12 @@ public class Match implements MatchEventListener {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(Match.class);
     public static final Random RANDOM = new Random();
-    private MatchData matchData;
-    private BoardWindow boardWindow;
     private final List<Color> possibleColors;
     private final GameEventListener gameListener;
+    private MatchData matchData;
+    private BoardWindow boardWindow;
 
-    public Match(MatchParameters matchParameters, GameEventListener gameListener) {
-        this(matchParameters, gameListener, new FactoryHelper());
-    }
-
-    public Match(MatchParameters matchParameters, GameEventListener gameListener, FactoryHelper factoryHelper) {
+    public Match(MatchParameters matchParameters, GameEventListener gameListener, UiFactory uiFactory) {
         LOGGER.info("Creating match with params {}", matchParameters);
         this.gameListener = gameListener;
         this.possibleColors = Arrays.stream(Color.values())
@@ -37,9 +34,10 @@ public class Match implements MatchEventListener {
                 .limit(matchParameters.getNumberOfPossibleColors())
                 .collect(Collectors.toList());
         initMatchData(matchParameters);
-        boardWindow = factoryHelper.makeBoardWindow(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
+        boardWindow = uiFactory.createBoardWindow(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
         LOGGER.trace("Match created");
     }
+
 
     private void initMatchData(MatchParameters matchParameters) {
         matchData = new MatchData(matchParameters.getNbPin(), matchParameters.getNbPossibleAttempts());
@@ -166,11 +164,5 @@ public class Match implements MatchEventListener {
     private void updateRow() {
         matchData.setCurrentRow(matchData.getCurrentRow() + 1);
         matchData.setCurrentPin(0);
-    }
-
-    static class FactoryHelper {
-        public BoardWindow makeBoardWindow(int nbPin, int nbPossibleAttempts, List<Color> possibleColors, MatchEventListener matchEventListener){
-            return new BoardWindow(nbPin, nbPossibleAttempts, possibleColors, matchEventListener);
-        }
     }
 }

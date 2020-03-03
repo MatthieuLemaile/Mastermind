@@ -22,15 +22,16 @@ sonarqube {
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.login", "5b3ed4d06fc538ccf8cd687e445aed4c3c8d6675" //EXC
 //        property "sonar.login", "5f16dadac80fbd3663dda9f99e2bf487f1269351" //PER
-        property "sonar.jacoco.reportPath", "build/jacoco/test.exec"
         property 'sonar.coverage.exclusions', [
+                "**/mastermind/AppMain*",
                 "**/mastermind/ui/about/**/*",
                 "**/mastermind/ui/board/**/*",
                 "**/mastermind/ui/option/**/*",
                 "**/mastermind/ui/Constant/**/*",
-                "**/mastermind/AppMain*",
                 "**/mastermind/ui/Menu*",
+                "**/mastermind/ui/UiSwingFactory*",
                 "**/mastermind/ui/UiComponentsUtils.java"]
+        property "sonar.jacoco.reportPath", "build/jacoco/test.exec"
     }
 }
 
@@ -101,6 +102,7 @@ jacocoTestReport {
                     'fr/lemaile/mastermind/ui/Constant**',
                     'fr/lemaile/mastermind/ui/Menu*',
                     'fr/lemaile/mastermind/AppMain*',
+                    'fr/lemaile/mastermind/ui/UiSwingFactory*',
                     'fr/lemaile/mastermind/ui/UiComponentsUtils*',
             ])
         })

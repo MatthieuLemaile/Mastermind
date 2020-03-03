@@ -1,4 +1,4 @@
-package fr.lemaile.mastermind.ui.board;
+package fr.lemaile.mastermind.ui.board.swing;
 
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.ui.ColorMapper;

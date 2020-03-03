@@ -1,6 +1,7 @@
 package fr.lemaile.mastermind.controller;
 
 import fr.lemaile.mastermind.model.MatchParameters;
+import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.option.OptionWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,19 +14,15 @@ public class Option implements OptionEventListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Option.class);
     private final GameEventListener gameEventListener;
+    private final UiFactory uiFactory;
     private MatchParameters matchParameters;
     private OptionWindow optionWindow;
-    private FactoryHelper factoryHelper;
 
-    public Option(MatchParameters matchParameters, GameEventListener gameEventListener) {
-        this(matchParameters, gameEventListener, new FactoryHelper());
-    }
-
-    public Option(MatchParameters matchParameters, GameEventListener gameEventListener, FactoryHelper factoryHelper) {
+    public Option(MatchParameters matchParameters, GameEventListener gameEventListener, UiFactory uiFactory) {
         LOGGER.trace("Building options");
         this.gameEventListener = gameEventListener;
         this.matchParameters = matchParameters;
-        this.factoryHelper = factoryHelper;
+        this.uiFactory = uiFactory;
         openOption();
     }
 
@@ -60,7 +57,7 @@ public class Option implements OptionEventListener {
         LOGGER.info("Opening Options");
         List<Integer> numberOfColorPossible = IntStream.range(1, matchParameters.getNumberOfPossibleColors() + 1).boxed().collect(Collectors.toList());
         List<Integer> listOfPossibleAttempts = IntStream.range(1, 21).boxed().collect(Collectors.toList());
-        this.optionWindow = factoryHelper.makeOptionWindow(matchParameters, this, listOfPossibleAttempts, numberOfColorPossible);
+        this.optionWindow = uiFactory.createOptionWindow(matchParameters, this, listOfPossibleAttempts, numberOfColorPossible);
     }
 
     private void checkIncompatibilities() {
@@ -74,11 +71,5 @@ public class Option implements OptionEventListener {
 
     public boolean matchParametersError() {
         return !matchParameters.isCanChooseSameColor() && matchParameters.getNumberOfPossibleColors() < matchParameters.getNbPin();
-    }
-
-    static class FactoryHelper{
-        public OptionWindow makeOptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible){
-            return new OptionWindow(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible);
-        }
     }
 }

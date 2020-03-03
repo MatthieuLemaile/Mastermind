@@ -1,4 +1,4 @@
-package fr.lemaile.mastermind.ui.option;
+package fr.lemaile.mastermind.ui.option.swing;
 
 import fr.lemaile.mastermind.controller.OptionEventListener;
 import fr.lemaile.mastermind.model.MatchParameters;
@@ -10,7 +10,8 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.List;
 
-import static fr.lemaile.mastermind.ui.UiComponentsUtils.*;
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.MENU_ACTION_BUTTON_SIZE;
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.createButton;
 
 
 public class OptionBody extends JPanel {

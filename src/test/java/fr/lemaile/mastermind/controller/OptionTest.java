@@ -1,6 +1,7 @@
 package fr.lemaile.mastermind.controller;
 
 import fr.lemaile.mastermind.model.MatchParameters;
+import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.option.OptionWindow;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,7 @@ class OptionTest {
     @Mock
     private OptionWindow optionWindow;
     @Mock
-    private Option.FactoryHelper factoryHelper;
+    private UiFactory uiFactory;
     @Captor
     private ArgumentCaptor<List<Integer>> possibleAttemptsCaptor;
     @Captor
@@ -31,14 +32,14 @@ class OptionTest {
     private Option option;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         matchParameters = new MatchParameters();
         matchParameters.setCanChooseSameColor(true);
         matchParameters.setNbPossibleAttempts(12);
         matchParameters.setNbPin(5);
         matchParameters.setNumberOfPossibleColors(8);
-        Mockito.when(factoryHelper.makeOptionWindow(Mockito.eq(matchParameters), Mockito.any(OptionEventListener.class), possibleAttemptsCaptor.capture(), numberOfColorCaptor.capture())).thenReturn(optionWindow);
-        option = new Option(matchParameters, gameEventListener, factoryHelper);
+        Mockito.when(uiFactory.createOptionWindow(Mockito.eq(matchParameters), Mockito.any(OptionEventListener.class), possibleAttemptsCaptor.capture(), numberOfColorCaptor.capture())).thenReturn(optionWindow);
+        option = new Option(matchParameters, gameEventListener, uiFactory);
     }
 
     @Test

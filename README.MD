@@ -46,7 +46,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ## Things to add
 
 #### 1.5
-* Create interface between controller and UI.
 * Add options. How many balls (not more than colors) ?
 #### 1.6 
 * java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
@@ -69,6 +68,7 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ###### Dev only
 * Added logs
+* Factory for UI, more separation between controller/UI
 
 #### 1.4
 * Moved Credit from in-game menu to a dedicated "à propos" part, accessible via an "À propos" option in main menu

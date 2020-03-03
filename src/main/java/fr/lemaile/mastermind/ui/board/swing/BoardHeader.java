@@ -1,4 +1,4 @@
-package fr.lemaile.mastermind.ui.board;
+package fr.lemaile.mastermind.ui.board.swing;
 
 import javax.swing.*;
 import java.awt.*;

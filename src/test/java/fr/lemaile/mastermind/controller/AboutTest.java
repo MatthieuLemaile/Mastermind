@@ -1,16 +1,13 @@
 package fr.lemaile.mastermind.controller;
 
+import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.about.AboutWindow;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AboutTest {
@@ -20,13 +17,13 @@ class AboutTest {
     @Mock
     private AboutWindow aboutWindow;
     @Mock
-    private About.FactoryHelper factoryHelper;
+    private UiFactory uiFactory;
     private About about;
 
     @BeforeEach
-    public void setUp(){
-        Mockito.when(factoryHelper.makeAboutWindow(Mockito.any(About.class))).thenReturn(aboutWindow);
-        about = new About(gameEventListener, factoryHelper);
+    public void setUp() {
+        Mockito.when(uiFactory.createAboutWindow(Mockito.any(About.class))).thenReturn(aboutWindow);
+        about = new About(gameEventListener, uiFactory);
     }
 
     @Test

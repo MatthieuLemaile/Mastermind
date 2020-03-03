@@ -2,6 +2,7 @@ package fr.lemaile.mastermind.controller;
 
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchParameters;
+import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.board.BoardWindow;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +26,7 @@ class MatchTest {
     @Mock
     private GameEventListener gameListener;
     @Mock
-    private Match.FactoryHelper factoryHelper;
+    private UiFactory uiFactory;
     @Captor
     private ArgumentCaptor<List<Color>> colorCaptor;
     @Captor
@@ -37,13 +38,13 @@ class MatchTest {
     private Match match;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MatchParameters matchParameters = new MatchParameters();
         matchParameters.setNumberOfPossibleColors(8);
         matchParameters.setNbPin(5);
         matchParameters.setNbPossibleAttempts(12);
-        Mockito.when(factoryHelper.makeBoardWindow(pinCaptor.capture(), possibleAttemptsCaptor.capture(), colorCaptor.capture(), Mockito.any(MatchEventListener.class))).thenReturn(boardWindow);
-        match = new Match(matchParameters, gameListener, factoryHelper);
+        Mockito.when(uiFactory.createBoardWindow(pinCaptor.capture(), possibleAttemptsCaptor.capture(), colorCaptor.capture(), Mockito.any(MatchEventListener.class))).thenReturn(boardWindow);
+        match = new Match(matchParameters, gameListener, uiFactory);
     }
 
     @Test
@@ -83,7 +84,7 @@ class MatchTest {
         matchParameters.setNbPin(5);
         matchParameters.setNbPossibleAttempts(12);
         matchParameters.setCanChooseSameColor(true);
-        match = new Match(matchParameters, gameListener, factoryHelper);
+        match = new Match(matchParameters, gameListener, uiFactory);
 
         match.proposeColor(Color.RED);
         match.proposeColor(Color.RED);
@@ -120,6 +121,6 @@ class MatchTest {
         matchParameters.setNbPin(5);
         matchParameters.setNbPossibleAttempts(12);
         matchParameters.setCanChooseSameColor(false);
-        match = new Match(matchParameters, gameListener, factoryHelper);
+        match = new Match(matchParameters, gameListener, uiFactory);
     }
 }
