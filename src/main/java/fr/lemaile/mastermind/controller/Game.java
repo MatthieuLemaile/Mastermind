@@ -1,10 +1,15 @@
 package fr.lemaile.mastermind.controller;
 
+
 import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchParameters;
 import fr.lemaile.mastermind.ui.MenuWindow;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Game implements GameEventListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
     private MenuWindow menuWindow;
     private MatchParameters matchParameters;
     private Option option;
@@ -14,7 +19,8 @@ public class Game implements GameEventListener {
         this(new FactoryHelper());
     }
 
-    public Game(FactoryHelper factoryHelper){
+    public Game(FactoryHelper factoryHelper) {
+        LOGGER.trace("Initialising Game");
         this.factoryHelper = factoryHelper;
         this.menuWindow = factoryHelper.makeMenuWindow(this);
         matchParameters = new MatchParameters();
@@ -24,37 +30,45 @@ public class Game implements GameEventListener {
         matchParameters.setNumberOfPossibleColors(Color.values().length-1);
         option = factoryHelper.makeOption(matchParameters, this);
         option.closeOption();
+        LOGGER.info("Game initialised");
     }
 
     @Override
     public void openMenu() {
+        LOGGER.trace("Open menu");
         menuWindow.show();
     }
 
     @Override
     public void openOptions() {
+        LOGGER.trace("Open options");
         option.openOption();
         menuWindow.hide();
     }
 
     @Override
     public void openAbout() {
+        LOGGER.trace("Open about");
         factoryHelper.makeAbout(this);
         menuWindow.hide();
     }
 
     @Override
     public void exitGame() {
+        LOGGER.info("Exiting game");
         System.exit(0);
     }
 
     @Override
     public void startMatch() {
-        if(option.matchParametersError()){
-            throw new IllegalArgumentException("You must have at least same number of color than pin if you can pick color more than one time.");
+        LOGGER.trace("Starting game");
+        if (option.matchParametersError()) {
+            LOGGER.error("Number of color/pin and color reusage inconsistent");
+            //display this to user.
+        } else {
+            factoryHelper.makeMatch(matchParameters, this);
+            menuWindow.hide();
         }
-        factoryHelper.makeMatch(matchParameters, this);
-        menuWindow.hide();
     }
 
     static class FactoryHelper {

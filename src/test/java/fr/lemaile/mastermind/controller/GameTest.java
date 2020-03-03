@@ -65,13 +65,8 @@ class GameTest {
     @Test
     void should_throw_exception_when_bad_params(){
         Mockito.when(option.matchParametersError()).thenReturn(true);
-        boolean exception = false;
-        try{
-            game.startMatch();
-        } catch (IllegalArgumentException e) {
-            exception = true;
-        }
-        Assertions.assertTrue(exception);
+        game.startMatch();
+        Mockito.verify(factoryHelper, Mockito.never()).makeMatch(Mockito.any(MatchParameters.class), Mockito.any(GameEventListener.class));
         Mockito.verify(menuWindow, Mockito.never()).hide();
     }
 

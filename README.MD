@@ -46,7 +46,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ## Things to add
 
 #### 1.5
-* Add real logging
 * Create interface between controller and UI.
 * Add options. How many balls (not more than colors) ?
 #### 1.6 
@@ -60,20 +59,26 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * Add a rules option in main menu, with a part with some tips. (Like make a combination that can be same result as previous one, if no green nor orange in result => no more color, ... ?)
 * BoardBody => JSplitPane + JScrollPane ?
 * Option => calculator to compute how much attempts min you need.
+* Show start match error to user (inconsistent options)
+* log into a file ?
 
 ## Release History
 
-####1.5
+#### 1.5
+###### User Visible
 
-####1.4
+###### Dev only
+* Added logs
+
+#### 1.4
 * Moved Credit from in-game menu to a dedicated "à propos" part, accessible via an "À propos" option in main menu
 * Fix bug for setting a different number of pin would crash if try to re-choose colors of the attempt.
 * Fix Bug : game still in background after closing sub menu window (match/option/about)
 
-####1.3
+#### 1.3
 * Added a main menu
 * Added an option panel to choose if the solution can reuse colors.
 
-####1.2
+#### 1.2
 * move solution in top of the game panel
 * Fix bug, right in max attempts possible would lead to both loose and win.

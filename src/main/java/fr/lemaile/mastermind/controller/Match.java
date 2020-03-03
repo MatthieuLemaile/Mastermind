@@ -4,6 +4,8 @@ import fr.lemaile.mastermind.model.Color;
 import fr.lemaile.mastermind.model.MatchData;
 import fr.lemaile.mastermind.model.MatchParameters;
 import fr.lemaile.mastermind.ui.board.BoardWindow;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import java.util.stream.IntStream;
  */
 public class Match implements MatchEventListener {
 
+    public static final Logger LOGGER = LoggerFactory.getLogger(Match.class);
     public static final Random RANDOM = new Random();
     private MatchData matchData;
     private BoardWindow boardWindow;
@@ -26,6 +29,7 @@ public class Match implements MatchEventListener {
     }
 
     public Match(MatchParameters matchParameters, GameEventListener gameListener, FactoryHelper factoryHelper) {
+        LOGGER.info("Creating match with params {}", matchParameters);
         this.gameListener = gameListener;
         this.possibleColors = Arrays.stream(Color.values())
                 //remove "empty" color
@@ -34,6 +38,7 @@ public class Match implements MatchEventListener {
                 .collect(Collectors.toList());
         initMatchData(matchParameters);
         boardWindow = factoryHelper.makeBoardWindow(matchData.getNbPin(), matchData.getNbPossibleAttempts(), possibleColors, this);
+        LOGGER.trace("Match created");
     }
 
     private void initMatchData(MatchParameters matchParameters) {
@@ -57,12 +62,14 @@ public class Match implements MatchEventListener {
                     .mapToObj(toBeChoosen::get)
                     .collect(Collectors.toList());
         }
+        LOGGER.trace("Pick combination {}", combination);
         matchData.setCombination(combination);
     }
 
     @Override
     public void leaveMatch() {
         //The user will wait a bit less for the window to close, event if all the background process are not terminated.
+        LOGGER.info("Leaving match");
         boardWindow.closeWindow();
         gameListener.openMenu();
     }
@@ -102,6 +109,9 @@ public class Match implements MatchEventListener {
         //update answers in matchData
         matchData.getAnswers().set(matchData.getCurrentRow(), result);
         //display answers
+        LOGGER.info("validate proposition {} against combination {}, result is good one, bad place, bad [{},{},{}], answer is {}",
+                matchData.getPropositions().get(matchData.getCurrentRow()),
+                matchData.getCombination(), bienPlace, malPlace, mauvais, result);
         boardWindow.displayResultRow(matchData.getCurrentRow(), result);
 
         updateRow();
@@ -112,10 +122,12 @@ public class Match implements MatchEventListener {
 
     private void endGameCheck(int bienPlace) {
         if (bienPlace == matchData.getNbPin()) {
+            LOGGER.info("Match end - Won");
             boardWindow.showCombination(matchData.getCombination());
             boardWindow.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
             this.leaveMatch();
         } else if (matchData.getCurrentRow() == matchData.getNbPossibleAttempts()) {
+            LOGGER.info("Match end - Lost");
             boardWindow.showCombination(matchData.getCombination());
             boardWindow.displayMessage("Perdu. Réessayez.");
             this.leaveMatch();
@@ -141,6 +153,7 @@ public class Match implements MatchEventListener {
 
     @Override
     public void proposeColor(Color color) {
+        LOGGER.trace("color proposition {} for pin position {}", color, matchData.getCurrentPin());
         matchData.getPropositions().get(matchData.getCurrentRow()).set(matchData.getCurrentPin(), color);
         updateNumPin();
         boardWindow.displayPropositionRow(matchData.getCurrentRow(), matchData.getPropositions().get(matchData.getCurrentRow()));

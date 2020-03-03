@@ -2,6 +2,8 @@ package fr.lemaile.mastermind.ui.board;
 
 import fr.lemaile.mastermind.controller.MatchEventListener;
 import fr.lemaile.mastermind.model.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,11 +22,12 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  */
 public class BoardWindow {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BoardWindow.class);
     private BoardBody boardBody;
     private final JFrame boardFrame;
 
     public BoardWindow(int nbPin, int nbAttempts, List<Color> colorList, MatchEventListener matchEventListener) {
-
+        LOGGER.trace("Creating Board UI (Match)");
         boardFrame = new JFrame();
         //Base properties
         boardFrame.setTitle("MASTERMIND");

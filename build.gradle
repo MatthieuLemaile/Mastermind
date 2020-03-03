@@ -9,11 +9,14 @@ plugins {
     id 'jacoco'
 }
 
+group = 'fr.lemaile'
+version = '1.5-SNAPSHOT'
+sourceCompatibility = '1.8'
+
 apply plugin: 'org.sonarqube'
 apply plugin: 'jacoco'
 
 sonarqube {
-
     properties {
         property "sonar.projectKey", "Mastermind"
         property "sonar.host.url", "http://localhost:9000"
@@ -39,9 +42,17 @@ repositories {
     mavenCentral()
 }
 
-group = 'fr.lemaile'
-version = '1.5-SNAPSHOT'
-sourceCompatibility = '1.8'
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-api:2.13.1'
+    compile 'org.apache.logging.log4j:log4j-core:2.13.1'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.2'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+//    testCompile "org.mockito:mockito-core:2.+"
+    testCompile "org.mockito:mockito-junit-jupiter:2.+"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+}
 
 publishing {
     publications {
@@ -65,13 +76,6 @@ jar {
 
 test {
     useJUnitPlatform()
-}
-
-dependencies {
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.4.2'
-//    testCompile "org.mockito:mockito-core:2.+"
-    testCompile "org.mockito:mockito-junit-jupiter:2.+"
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
 }
 
 

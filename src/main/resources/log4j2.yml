@@ -1,0 +1,12 @@
+Configuration:
+  appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+
+  Loggers:
+    Root:
+      level: trace
+      AppenderRef:
+        ref: STDOUT

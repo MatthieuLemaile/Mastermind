@@ -1,6 +1,8 @@
 package fr.lemaile.mastermind.ui;
 
 import fr.lemaile.mastermind.controller.GameEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,10 +14,12 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class MenuWindow {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuWindow.class);
     private final JFrame menuFrame;
 
     public MenuWindow(GameEventListener gameEventListener) {
 
+        LOGGER.trace("Creating Menu UI");
         menuFrame = new JFrame();
 
         menuFrame.setTitle("Mastermind - menu");
@@ -43,13 +47,16 @@ public class MenuWindow {
         menuFrame.pack();
         menuFrame.setLocationRelativeTo(menuFrame.getParent());
         menuFrame.setVisible(true);
+        LOGGER.trace("Menu UI Created");
     }
 
     public void hide() {
+        LOGGER.trace("Menu UI hidden");
         menuFrame.setVisible(false);
     }
 
     public void show() {
+        LOGGER.trace("Menu UI showed");
         menuFrame.setVisible(true);
     }
 }

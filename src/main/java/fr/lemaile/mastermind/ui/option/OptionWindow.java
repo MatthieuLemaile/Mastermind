@@ -2,6 +2,8 @@ package fr.lemaile.mastermind.ui.option;
 
 import fr.lemaile.mastermind.controller.OptionEventListener;
 import fr.lemaile.mastermind.model.MatchParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +15,12 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class OptionWindow {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OptionWindow.class);
     private final JFrame optionFrame;
     private final OptionBody optionBody;
 
     public OptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible) {
-
+        LOGGER.trace("Creating Option UI");
         optionFrame = new JFrame();
         optionFrame.setTitle("Mastermind - options");
         optionFrame.addWindowListener(new WindowAdapter() {
