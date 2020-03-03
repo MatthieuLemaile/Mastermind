@@ -20,7 +20,7 @@ public class OptionWindowSwing implements OptionWindow {
     private final JFrame optionFrame;
     private final OptionBody optionBody;
 
-    public OptionWindowSwing(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible) {
+    public OptionWindowSwing(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible, List<Integer> listOfPossiblePinNumber) {
         LOGGER.trace("Creating Option UI");
         optionFrame = new JFrame();
         optionFrame.setTitle("Mastermind - options");
@@ -31,7 +31,7 @@ public class OptionWindowSwing implements OptionWindow {
             }
         });
 
-        optionBody = new OptionBody(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible);
+        optionBody = new OptionBody(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible, listOfPossiblePinNumber);
 
         optionFrame.getContentPane().add(optionBody, BorderLayout.CENTER);
         optionFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

@@ -47,6 +47,13 @@ public class Option implements OptionEventListener {
     }
 
     @Override
+    public void selectNumberOfPin(int numberOfPin) {
+        LOGGER.debug("Update number of pin to {}", numberOfPin);
+        matchParameters.setNbPin(numberOfPin);
+        checkIncompatibilities();
+    }
+
+    @Override
     public void closeOption() {
         LOGGER.info("close options");
         optionWindow.closeWindow();
@@ -57,7 +64,8 @@ public class Option implements OptionEventListener {
         LOGGER.info("Opening Options");
         List<Integer> numberOfColorPossible = IntStream.range(1, matchParameters.getNumberOfPossibleColors() + 1).boxed().collect(Collectors.toList());
         List<Integer> listOfPossibleAttempts = IntStream.range(1, 21).boxed().collect(Collectors.toList());
-        this.optionWindow = uiFactory.createOptionWindow(matchParameters, this, listOfPossibleAttempts, numberOfColorPossible);
+        List<Integer> listOfPossiblePinNumber = IntStream.range(1, 8).boxed().collect(Collectors.toList());
+        this.optionWindow = uiFactory.createOptionWindow(matchParameters, this, listOfPossibleAttempts, numberOfColorPossible, listOfPossiblePinNumber);
     }
 
     private void checkIncompatibilities() {

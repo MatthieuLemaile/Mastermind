@@ -19,7 +19,7 @@ public class OptionBody extends JPanel {
     private JTextArea errorContainer;
     private final JButton buttonLeave;
 
-    public OptionBody(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible) {
+    public OptionBody(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible, List<Integer> listOfPossiblePinNumber) {
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -47,10 +47,18 @@ public class OptionBody extends JPanel {
 
 
         JComboBox<Integer> colorNumberSelector = new JComboBox(numberOfColorPossible.toArray());
-        colorNumberSelector.setSelectedIndex(matchParameters.getNumberOfPossibleColors()-1);
+        colorNumberSelector.setSelectedIndex(matchParameters.getNumberOfPossibleColors() - 1);
         colorNumberSelector.addItemListener(itemEvent -> {
-            if(ItemEvent.SELECTED == itemEvent.getStateChange()){
+            if (ItemEvent.SELECTED == itemEvent.getStateChange()) {
                 optionEventListener.selectNumberOfPossibleColor((Integer) itemEvent.getItem());
+            }
+        });
+
+        JComboBox<Integer> pinNumberSelector = new JComboBox(listOfPossiblePinNumber.toArray());
+        pinNumberSelector.setSelectedIndex(matchParameters.getNbPin() - 1);
+        pinNumberSelector.addItemListener(itemEvent -> {
+            if (ItemEvent.SELECTED == itemEvent.getStateChange()) {
+                optionEventListener.selectNumberOfPin((Integer) itemEvent.getItem());
             }
         });
 
@@ -63,6 +71,10 @@ public class OptionBody extends JPanel {
         this.add(UiComponentsUtils.getTextArea("Nombre de couleurs ?"));
         this.add(Box.createRigidArea(new Dimension(0, 15)));
         this.add(colorNumberSelector);
+        this.add(Box.createRigidArea(new Dimension(0, 10)));
+        this.add(UiComponentsUtils.getTextArea("Nombre de balles ?"));
+        this.add(Box.createRigidArea(new Dimension(0, 15)));
+        this.add(pinNumberSelector);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(errorContainer);
         this.add(buttonLeave);

@@ -17,7 +17,7 @@ public interface UiFactory {
 
     AboutWindow createAboutWindow(AboutEventListener aboutEventListener);
 
-    OptionWindow createOptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible);
+    OptionWindow createOptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible, List<Integer> listOfPossiblePinNumber);
 
     BoardWindow createBoardWindow(int nbPin, int nbAttempts, List<Color> colorList, MatchEventListener matchEventListener);
 }

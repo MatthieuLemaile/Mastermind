@@ -27,8 +27,8 @@ public class UiSwingFactory implements UiFactory {
     }
 
     @Override
-    public OptionWindow createOptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible) {
-        return new OptionWindowSwing(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible);
+    public OptionWindow createOptionWindow(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible, List<Integer> listOfPossiblePinNumber) {
+        return new OptionWindowSwing(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible, listOfPossiblePinNumber);
     }
 
     @Override

@@ -41,12 +41,10 @@ Matthieu Lemaile
 
 ## Miscellaneous
 
-With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts.
+With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts. (to double check)
 
 ## Things to add
 
-#### 1.5
-* Add options. How many balls (not more than colors) ?
 #### 1.6 
 * java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
 
@@ -65,7 +63,7 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 #### 1.5
 ###### User Visible
-
+* Option : can choose the number of pin/balls.
 ###### Dev only
 * Added logs
 * Factory for UI, more separation between controller/UI

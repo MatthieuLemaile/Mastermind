@@ -28,6 +28,8 @@ class OptionTest {
     private ArgumentCaptor<List<Integer>> possibleAttemptsCaptor;
     @Captor
     private ArgumentCaptor<List<Integer>> numberOfColorCaptor;
+    @Captor
+    private ArgumentCaptor<List<Integer>> numberOfPinCaptor;
     private MatchParameters matchParameters;
     private Option option;
 
@@ -38,7 +40,7 @@ class OptionTest {
         matchParameters.setNbPossibleAttempts(12);
         matchParameters.setNbPin(5);
         matchParameters.setNumberOfPossibleColors(8);
-        Mockito.when(uiFactory.createOptionWindow(Mockito.eq(matchParameters), Mockito.any(OptionEventListener.class), possibleAttemptsCaptor.capture(), numberOfColorCaptor.capture())).thenReturn(optionWindow);
+        Mockito.when(uiFactory.createOptionWindow(Mockito.eq(matchParameters), Mockito.any(OptionEventListener.class), possibleAttemptsCaptor.capture(), numberOfColorCaptor.capture(), numberOfPinCaptor.capture())).thenReturn(optionWindow);
         option = new Option(matchParameters, gameEventListener, uiFactory);
     }
 
@@ -46,6 +48,7 @@ class OptionTest {
     void should_update_match_param_can_choose_same_color(){
         Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
         Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
 
         option.updateCanChooseSameColor(false);
         Assertions.assertFalse(matchParameters.isCanChooseSameColor());
@@ -56,15 +59,17 @@ class OptionTest {
     void should_update_match_param_nb_possible_attemtps(){
         Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
         Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
 
         option.selectAttemptsNumber(8);
         Assertions.assertEquals(8, matchParameters.getNbPossibleAttempts());
     }
 
     @Test
-    void should_update_match_param_nb_possible_color(){
+    void should_update_match_param_nb_possible_color() {
         Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
         Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
 
         option.selectNumberOfPossibleColor(5);
         Assertions.assertEquals(5, matchParameters.getNumberOfPossibleColors());
@@ -72,9 +77,21 @@ class OptionTest {
     }
 
     @Test
-    void should_display_error(){
+    void should_update_matc_param_nb_possible_pin() {
         Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
         Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
+
+        option.selectNumberOfPin(3);
+        Assertions.assertEquals(3, matchParameters.getNbPin());
+        Mockito.verify(optionWindow).hideError();
+    }
+
+    @Test
+    void should_display_error() {
+        Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
+        Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
 
         option.selectNumberOfPossibleColor(4);
         Assertions.assertEquals(4, matchParameters.getNumberOfPossibleColors());
@@ -88,6 +105,7 @@ class OptionTest {
     void should_close_option(){
         Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
         Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
 
         option.closeOption();
         Mockito.verify(optionWindow).closeWindow();

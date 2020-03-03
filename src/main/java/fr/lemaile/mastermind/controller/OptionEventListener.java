@@ -5,4 +5,6 @@ public interface OptionEventListener {
     void closeOption();
     void selectAttemptsNumber(int attemptNumber);
     void selectNumberOfPossibleColor(int numberOfPossibleColor);
+
+    void selectNumberOfPin(int numberOfPin);
 }
