@@ -2,7 +2,7 @@
 
 This project is a mastermind in java. It has no real purpose other than learning some things in Java for me.
 
-Actual version is 1.5
+Actual version is 1.6
 
 ## Installation
 
@@ -68,6 +68,8 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * Show start match error to user (inconsistent options)
 
 ## Release History
+
+#### 1.6
 
 #### 1.5
 ###### User Visible
