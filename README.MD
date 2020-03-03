@@ -46,18 +46,26 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ## Things to add
 
 #### 1.6 
-* java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
+
 
 #### backlog
+###### technical improvment task
+* java FX (in place of swing/awt). Maybe wait for something more stable than jfx 11 (it has no packager).
 * java module (problem with java.awt imported from two modules.) ?
-* UComponentUtils should be a factory / builder, see which pattern is relevant
+* log into a file ?
+
+###### code improvment
+* UComponentUtils should containes builders.
+* BoardBody => JSplitPane + JScrollPane ?
+
+###### New features
 * Ask Marc : save highscores ? In this case we'll need file writing, Nio2. With times maybe ?
 * i18n ?
 * Add a rules option in main menu, with a part with some tips. (Like make a combination that can be same result as previous one, if no green nor orange in result => no more color, ... ?)
-* BoardBody => JSplitPane + JScrollPane ?
 * Option => calculator to compute how much attempts min you need.
+
+######User-friendly
 * Show start match error to user (inconsistent options)
-* log into a file ?
 
 ## Release History
 

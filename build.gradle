@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'fr.lemaile'
-version = '1.5-SNAPSHOT'
+version = '1.5'
 sourceCompatibility = '1.8'
 
 apply plugin: 'org.sonarqube'

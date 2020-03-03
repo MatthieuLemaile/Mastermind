@@ -35,7 +35,7 @@ public class AboutWindowSwing implements AboutWindow {
         aboutPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         aboutPanel.add(getTextArea("With Matthieu L"));
         aboutPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        aboutPanel.add(getTextArea("version 1.5 SNAPSHOT"));
+        aboutPanel.add(getTextArea("version 1.5"));
         aboutPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         aboutPanel.add(buttonLeave);
 
