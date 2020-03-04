@@ -23,6 +23,8 @@ Full gradle command line, with test and sonar :
 gradlew clean build jacocoTestReport sonarqube
 ```
 
+To run as a standalone jar, use the "all" jar, located in build/libs after you ran the gradle build task.
+
 ####Sonar
 Run sonar docker with docker run -d -p 9000:9000 sonarqube
 In your sonar (localhost:9000) log in with admin/admin,
