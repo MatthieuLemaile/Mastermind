@@ -1,5 +1,6 @@
 package fr.lemaile.mastermind.controller;
 
+import fr.lemaile.mastermind.model.LocaleOption;
 import fr.lemaile.mastermind.model.MatchParameters;
 import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.option.OptionWindow;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Locale;
 
 @ExtendWith(MockitoExtension.class)
 class OptionTest {
@@ -102,7 +104,22 @@ class OptionTest {
     }
 
     @Test
-    void should_close_option(){
+    void should_update_locale() {
+        Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
+        Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
+        Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());
+
+        option.selectLocale(Locale.ENGLISH);
+        Assertions.assertEquals(Locale.ENGLISH, LocaleOption.getUiMessages().getLocale());
+        Mockito.verify(optionWindow).closeWindow();
+        Mockito.verify(gameEventListener).reloadText();
+
+        option.selectLocale(Locale.FRANCE);
+        Assertions.assertEquals(Locale.FRENCH, LocaleOption.getUiMessages().getLocale());
+    }
+
+    @Test
+    void should_close_option() {
         Assertions.assertEquals(20, possibleAttemptsCaptor.getValue().size());
         Assertions.assertEquals(8, numberOfColorCaptor.getValue().size());
         Assertions.assertEquals(7, numberOfPinCaptor.getValue().size());

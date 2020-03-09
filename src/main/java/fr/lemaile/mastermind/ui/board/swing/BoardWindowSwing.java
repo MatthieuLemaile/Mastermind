@@ -2,6 +2,8 @@ package fr.lemaile.mastermind.ui.board.swing;
 
 import fr.lemaile.mastermind.controller.MatchEventListener;
 import fr.lemaile.mastermind.model.Color;
+import fr.lemaile.mastermind.model.LocaleOption;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 import fr.lemaile.mastermind.ui.board.BoardWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +74,19 @@ public class BoardWindowSwing implements BoardWindow {
     }
 
     @Override
-    public void displayMessage(String message) {
-        JOptionPane.showMessageDialog(null, message);
+    public void displayWonMatch(int nbEssai) {
+        String wonMessage;
+        if (nbEssai > 1) {
+            wonMessage = String.format(LocaleOption.getUiMessages().getString(UiMessagesKeys.END_MATCH_WON_PLURAL.getCode()), nbEssai);
+        } else {
+            wonMessage = LocaleOption.getUiMessages().getString(UiMessagesKeys.END_MATCH_WON_SINGULAR.getCode());
+        }
+        JOptionPane.showMessageDialog(null, wonMessage);
+    }
+
+    @Override
+    public void displayLostMatch() {
+        JOptionPane.showMessageDialog(null, LocaleOption.getUiMessages().getString(UiMessagesKeys.END_MATCH_LOST.getCode()));
     }
 
     @Override

@@ -7,7 +7,9 @@ import java.util.List;
 public interface BoardWindow {
     void closeWindow();
 
-    void displayMessage(String message);
+    void displayWonMatch(int nbEssai);
+
+    void displayLostMatch();
 
     void showCombination(List<Color> combination);
 

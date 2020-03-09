@@ -48,7 +48,7 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ## Things to add
 
 #### 1.6 
-
+* internationalization
 
 #### backlog
 ###### technical improvment task
@@ -61,7 +61,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ###### New features
 * Ask Marc : save highscores ? In this case we'll need file writing, Nio2. With times maybe ?
-* i18n ?
 * Add a rules option in main menu, with a part with some tips. (Like make a combination that can be same result as previous one, if no green nor orange in result => no more color, ... ?)
 * Option => calculator to compute how much attempts min you need.
 

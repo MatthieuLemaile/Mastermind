@@ -122,12 +122,12 @@ public class Match implements MatchEventListener {
         if (bienPlace == matchData.getNbPin()) {
             LOGGER.info("Match end - Won");
             boardWindow.showCombination(matchData.getCombination());
-            boardWindow.displayMessage("Félicitations !\nVous avez gagné en " + matchData.getCurrentRow() + " tentative(s)");
+            boardWindow.displayWonMatch(matchData.getCurrentRow());
             this.leaveMatch();
         } else if (matchData.getCurrentRow() == matchData.getNbPossibleAttempts()) {
             LOGGER.info("Match end - Lost");
             boardWindow.showCombination(matchData.getCombination());
-            boardWindow.displayMessage("Perdu. Réessayez.");
+            boardWindow.displayLostMatch();
             this.leaveMatch();
         }
     }

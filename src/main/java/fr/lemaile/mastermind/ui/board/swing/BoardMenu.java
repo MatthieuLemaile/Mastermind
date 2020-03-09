@@ -2,6 +2,8 @@ package fr.lemaile.mastermind.ui.board.swing;
 
 import fr.lemaile.mastermind.controller.MatchEventListener;
 import fr.lemaile.mastermind.model.Color;
+import fr.lemaile.mastermind.model.LocaleOption;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 import fr.lemaile.mastermind.ui.ColorMapper;
 import fr.lemaile.mastermind.ui.UiComponentsUtils;
 
@@ -16,7 +18,7 @@ public class BoardMenu extends JPanel {
     public BoardMenu(List<Color> colorList, MatchEventListener eventListener) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        add(getTextArea("Choix"));
+        add(getTextField(LocaleOption.getUiMessages().getString(UiMessagesKeys.COLOR_PANEL_TITLE.getCode())));
         add(Box.createRigidArea(new Dimension(0, 19)));
 
         colorList.forEach(color -> {
@@ -26,8 +28,10 @@ public class BoardMenu extends JPanel {
             add(Box.createRigidArea(new Dimension(0, 5)));
         });
 
-        JButton buttonValidate = UiComponentsUtils.createButton("Validate", ACTION_BUTTON_SIZE, actionEvent -> eventListener.validateCombination());
-        JButton buttonLeave = UiComponentsUtils.createButton("Quitter", ACTION_BUTTON_SIZE, actionEvent -> eventListener.leaveMatch());
+        String validateButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.VALIDATE_BUTTON_TEXT.getCode());
+        JButton buttonValidate = UiComponentsUtils.createButton(validateButtonText, ACTION_BUTTON_SIZE, actionEvent -> eventListener.validateCombination());
+        String quitButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.QUIT_MATCH_BUTTON_TEXT.getCode());
+        JButton buttonLeave = UiComponentsUtils.createButton(quitButtonText, ACTION_BUTTON_SIZE, actionEvent -> eventListener.leaveMatch());
 
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(buttonValidate);

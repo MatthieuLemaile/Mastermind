@@ -1,6 +1,8 @@
 package fr.lemaile.mastermind.ui;
 
 import fr.lemaile.mastermind.controller.GameEventListener;
+import fr.lemaile.mastermind.model.LocaleOption;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,18 +18,26 @@ public class MenuWindowSwing implements MenuWindow {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuWindowSwing.class);
     private final JFrame menuFrame;
+    private final JButton buttonNew;
+    private final JButton buttonLeave;
+    private final JButton buttonOption;
+    private final JButton buttonAbout;
 
     public MenuWindowSwing(GameEventListener gameEventListener) {
 
         LOGGER.trace("Creating Menu UI");
         menuFrame = new JFrame();
 
-        menuFrame.setTitle("Mastermind - menu");
+        menuFrame.setTitle(LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_WINDOW_TITLE.getCode()));
 
-        JButton buttonNew = createButton("Nouveau match", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.startMatch());
-        JButton buttonLeave = createButton("Leave game", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.exitGame());
-        JButton buttonOption = createButton("Options", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.openOptions());
-        JButton buttonAbout = createButton("À propos", MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.openAbout());
+        String newGameButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_NEW_GAME.getCode());
+        String leaveGameButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_LEAVE_GAME.getCode());
+        String optionButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_OPTION.getCode());
+        String aboutButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_ABOUT.getCode());
+        buttonNew = createButton(newGameButtonText, MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.startMatch());
+        buttonLeave = createButton(leaveGameButtonText, MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.exitGame());
+        buttonOption = createButton(optionButtonText, MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.openOptions());
+        buttonAbout = createButton(aboutButtonText, MENU_ACTION_BUTTON_SIZE, actionEvent -> gameEventListener.openAbout());
 
         JPanel menuBody = new JPanel();
         menuBody.setLayout(new BoxLayout(menuBody, BoxLayout.PAGE_AXIS));
@@ -48,6 +58,19 @@ public class MenuWindowSwing implements MenuWindow {
         menuFrame.setLocationRelativeTo(menuFrame.getParent());
         menuFrame.setVisible(true);
         LOGGER.trace("Menu UI Created");
+    }
+
+    @Override
+    public void reloadText() {
+        menuFrame.setTitle(LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_WINDOW_TITLE.getCode()));
+        String newGameButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_NEW_GAME.getCode());
+        String leaveGameButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_LEAVE_GAME.getCode());
+        String optionButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_OPTION.getCode());
+        String aboutButtonText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_ABOUT.getCode());
+        buttonNew.setText(newGameButtonText);
+        buttonAbout.setText(aboutButtonText);
+        buttonLeave.setText(leaveGameButtonText);
+        buttonOption.setText(optionButtonText);
     }
 
     @Override

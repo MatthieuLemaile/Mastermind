@@ -1,5 +1,7 @@
 package fr.lemaile.mastermind.ui.board.swing;
 
+import fr.lemaile.mastermind.model.LocaleOption;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 import fr.lemaile.mastermind.ui.ColorMapper;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class CombinationPanel extends JPanel {
 
     public CombinationPanel(int nbPin) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JLabel textCombination = new JLabel("Combinaison secrète ");
+        JLabel textCombination = new JLabel(LocaleOption.getUiMessages().getString(UiMessagesKeys.SECRET_COMBINATION_TITLE.getCode()));
         textCombination.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(textCombination);
         add(Box.createRigidArea(new Dimension(0, 10)));

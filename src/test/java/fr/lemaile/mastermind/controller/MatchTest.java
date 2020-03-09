@@ -105,7 +105,7 @@ class MatchTest {
         Assertions.assertEquals(Color.GREEN, colorList.get(0));
 
         Mockito.verify(boardWindow).showCombination(Mockito.anyList());
-        Mockito.verify(boardWindow).displayMessage(Mockito.anyString());
+        Mockito.verify(boardWindow).displayWonMatch(Mockito.anyInt());
         Mockito.verify(boardWindow).closeWindow();
         Mockito.verify(gameListener).openMenu();
     }

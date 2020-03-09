@@ -1,6 +1,8 @@
 package fr.lemaile.mastermind.ui.about;
 
 import fr.lemaile.mastermind.controller.AboutEventListener;
+import fr.lemaile.mastermind.model.LocaleOption;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +19,7 @@ public class AboutWindowSwing implements AboutWindow {
 
     public AboutWindowSwing(AboutEventListener aboutEventListener) {
         aboutFrame = new JFrame();
-        aboutFrame.setTitle("Mastermind - about");
+        aboutFrame.setTitle(LocaleOption.getUiMessages().getString(UiMessagesKeys.ABOUT_WINDOW_TITLE.getCode()));
         aboutFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -29,14 +31,12 @@ public class AboutWindowSwing implements AboutWindow {
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.PAGE_AXIS));
         aboutPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        JButton buttonLeave = createButton("Menu", MENU_ACTION_BUTTON_SIZE, actionEvent -> aboutEventListener.closeAbout());
+        JButton buttonLeave = createButton(LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_CODE.getCode()),
+                MENU_ACTION_BUTTON_SIZE, actionEvent -> aboutEventListener.closeAbout());
 
-        aboutPanel.add(getTextArea("By Marc L."));
-        aboutPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        aboutPanel.add(getTextArea("With Matthieu L"));
-        aboutPanel.add(Box.createRigidArea(new Dimension(0, 5)));
-        aboutPanel.add(getTextArea("version 1.6 SNAPSHOT"));
-        aboutPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        JTextPane creditTextPane = getTextPane(Color.BLACK, buttonLeave.getBackground());
+        creditTextPane.setText(LocaleOption.getUiMessages().getString(UiMessagesKeys.CREDIT.getCode()));
+        aboutPanel.add(creditTextPane);
         aboutPanel.add(buttonLeave);
 
         aboutFrame.getContentPane().add(aboutPanel, BorderLayout.CENTER);

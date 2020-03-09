@@ -36,7 +36,13 @@ class GameTest {
     }
 
     @Test
-    void should_open_menu(){
+    void should_reload_text() {
+        game.reloadText();
+        Mockito.verify(menuWindow, Mockito.times(1)).reloadText();
+    }
+
+    @Test
+    void should_open_menu() {
         game.openMenu();
         Mockito.verify(uiFactory).createMenuWindow(game);
         Mockito.verify(menuWindow).show();

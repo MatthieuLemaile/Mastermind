@@ -25,15 +25,21 @@ public class Game implements GameEventListener {
         this.uiFactory = uiFactory;
         LOGGER.trace("Initialising Game");
         this.factoryHelper = factoryHelper;
-        this.menuWindow = uiFactory.createMenuWindow(this);
         matchParameters = new MatchParameters();
         matchParameters.setCanChooseSameColor(true);
         matchParameters.setNbPin(5);
         matchParameters.setNbPossibleAttempts(12);
         matchParameters.setNumberOfPossibleColors(Color.values().length - 1);
         option = factoryHelper.makeOption(matchParameters, this, uiFactory);
+        this.menuWindow = uiFactory.createMenuWindow(this);
         option.closeOption();
         LOGGER.info("Game initialised");
+    }
+
+    @Override
+    public void reloadText() {
+        LOGGER.trace("Reload text");
+        menuWindow.reloadText();
     }
 
     @Override

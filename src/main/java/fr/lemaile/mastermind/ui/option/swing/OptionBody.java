@@ -1,80 +1,38 @@
 package fr.lemaile.mastermind.ui.option.swing;
 
 import fr.lemaile.mastermind.controller.OptionEventListener;
+import fr.lemaile.mastermind.model.LocaleOption;
 import fr.lemaile.mastermind.model.MatchParameters;
-import fr.lemaile.mastermind.ui.UiComponentsUtils;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ItemEvent;
 import java.util.List;
 
-import static fr.lemaile.mastermind.ui.UiComponentsUtils.MENU_ACTION_BUTTON_SIZE;
-import static fr.lemaile.mastermind.ui.UiComponentsUtils.createButton;
-
+import static fr.lemaile.mastermind.ui.UiComponentsUtils.*;
 
 public class OptionBody extends JPanel {
 
-    private JTextArea errorContainer;
+    private JTextPane errorContainer;
     private final JButton buttonLeave;
 
     public OptionBody(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible, List<Integer> listOfPossiblePinNumber) {
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JCheckBox colorDuplicate = new JCheckBox("Couleur en plusieurs exemplaire possible", matchParameters.isCanChooseSameColor());
-        colorDuplicate.addItemListener(e -> optionEventListener.updateCanChooseSameColor(ItemEvent.SELECTED == e.getStateChange()));
-        colorDuplicate.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.LINE_AXIS));
+        optionsPanel.add(new GameOptionPanel(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible, listOfPossiblePinNumber));
+        optionsPanel.add(new LanguageSelector(optionEventListener));
 
-        buttonLeave = createButton("Menu", MENU_ACTION_BUTTON_SIZE, actionEvent -> optionEventListener.closeOption());
-        errorContainer = new JTextArea();
-        errorContainer.setEditable(false);
-        errorContainer.setCursor(null);
-        errorContainer.setFocusable(false);
-        errorContainer.setLineWrap(true);
-        errorContainer.setWrapStyleWord(true);
-        errorContainer.setBackground(buttonLeave.getBackground());
-        errorContainer.setForeground(Color.RED);
+        errorContainer = getTextPane(Color.RED, this.getBackground());
+        errorContainer.setMinimumSize(this.getMinimumSize());
 
-        JComboBox<Integer> attemptsSelector = new JComboBox(listOfPossibleAttempts.toArray());
-        attemptsSelector.setSelectedIndex(matchParameters.getNbPossibleAttempts()-1);
-        attemptsSelector.addItemListener(itemEvent -> {
-            if(ItemEvent.SELECTED == itemEvent.getStateChange()){
-                optionEventListener.selectAttemptsNumber((Integer) itemEvent.getItem());
-            }
-        });
+        String menuText = LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_CODE.getCode());
+        buttonLeave = createButton(menuText, MENU_ACTION_BUTTON_SIZE, actionEvent -> optionEventListener.closeOption());
 
-
-        JComboBox<Integer> colorNumberSelector = new JComboBox(numberOfColorPossible.toArray());
-        colorNumberSelector.setSelectedIndex(matchParameters.getNumberOfPossibleColors() - 1);
-        colorNumberSelector.addItemListener(itemEvent -> {
-            if (ItemEvent.SELECTED == itemEvent.getStateChange()) {
-                optionEventListener.selectNumberOfPossibleColor((Integer) itemEvent.getItem());
-            }
-        });
-
-        JComboBox<Integer> pinNumberSelector = new JComboBox(listOfPossiblePinNumber.toArray());
-        pinNumberSelector.setSelectedIndex(matchParameters.getNbPin() - 1);
-        pinNumberSelector.addItemListener(itemEvent -> {
-            if (ItemEvent.SELECTED == itemEvent.getStateChange()) {
-                optionEventListener.selectNumberOfPin((Integer) itemEvent.getItem());
-            }
-        });
-
-        this.add(colorDuplicate);
-        this.add(Box.createRigidArea(new Dimension(0, 15)));
-        this.add(UiComponentsUtils.getTextArea("Nombre d'essai ?"));
-        this.add(Box.createRigidArea(new Dimension(0, 15)));
-        this.add(attemptsSelector);
-        this.add(Box.createRigidArea(new Dimension(0, 15)));
-        this.add(UiComponentsUtils.getTextArea("Nombre de couleurs ?"));
-        this.add(Box.createRigidArea(new Dimension(0, 15)));
-        this.add(colorNumberSelector);
-        this.add(Box.createRigidArea(new Dimension(0, 10)));
-        this.add(UiComponentsUtils.getTextArea("Nombre de balles ?"));
-        this.add(Box.createRigidArea(new Dimension(0, 15)));
-        this.add(pinNumberSelector);
+        this.add(optionsPanel);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(errorContainer);
         this.add(buttonLeave);

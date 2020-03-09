@@ -1,5 +1,6 @@
 package fr.lemaile.mastermind.controller;
 
+import fr.lemaile.mastermind.model.LocaleOption;
 import fr.lemaile.mastermind.model.MatchParameters;
 import fr.lemaile.mastermind.ui.UiFactory;
 import fr.lemaile.mastermind.ui.option.OptionWindow;
@@ -7,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -54,6 +57,14 @@ public class Option implements OptionEventListener {
     }
 
     @Override
+    public void selectLocale(Locale locale) {
+        LocaleOption.setUiMessages(ResourceBundle.getBundle("uiMessages", locale));
+        optionWindow.closeWindow();
+        gameEventListener.reloadText();
+        openOption();
+    }
+
+    @Override
     public void closeOption() {
         LOGGER.info("close options");
         optionWindow.closeWindow();
@@ -80,4 +91,5 @@ public class Option implements OptionEventListener {
     public boolean matchParametersError() {
         return !matchParameters.isCanChooseSameColor() && matchParameters.getNumberOfPossibleColors() < matchParameters.getNbPin();
     }
+
 }

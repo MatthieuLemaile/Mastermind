@@ -1,7 +1,9 @@
 package fr.lemaile.mastermind.ui.option.swing;
 
 import fr.lemaile.mastermind.controller.OptionEventListener;
+import fr.lemaile.mastermind.model.LocaleOption;
 import fr.lemaile.mastermind.model.MatchParameters;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 import fr.lemaile.mastermind.ui.option.OptionWindow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +20,12 @@ public class OptionWindowSwing implements OptionWindow {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OptionWindowSwing.class);
     private final JFrame optionFrame;
-    private final OptionBody optionBody;
+    private final OptionBody gameOptionPanel;
 
     public OptionWindowSwing(MatchParameters matchParameters, OptionEventListener optionEventListener, List<Integer> listOfPossibleAttempts, List<Integer> numberOfColorPossible, List<Integer> listOfPossiblePinNumber) {
         LOGGER.trace("Creating Option UI");
         optionFrame = new JFrame();
-        optionFrame.setTitle("Mastermind - options");
+        optionFrame.setTitle(LocaleOption.getUiMessages().getString(UiMessagesKeys.OPTION_WINDOW_TITLE.getCode()));
         optionFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -31,9 +33,9 @@ public class OptionWindowSwing implements OptionWindow {
             }
         });
 
-        optionBody = new OptionBody(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible, listOfPossiblePinNumber);
+        gameOptionPanel = new OptionBody(matchParameters, optionEventListener, listOfPossibleAttempts, numberOfColorPossible, listOfPossiblePinNumber);
 
-        optionFrame.getContentPane().add(optionBody, BorderLayout.CENTER);
+        optionFrame.getContentPane().add(gameOptionPanel, BorderLayout.CENTER);
         optionFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         optionFrame.pack();
         optionFrame.setLocationRelativeTo(optionFrame.getParent());
@@ -47,13 +49,13 @@ public class OptionWindowSwing implements OptionWindow {
 
     @Override
     public void displayError(String errorMessage) {
-        optionBody.displayError(errorMessage);
+        gameOptionPanel.displayError(errorMessage);
         optionFrame.pack();
     }
 
     @Override
     public void hideError() {
-        optionBody.hideError();
+        gameOptionPanel.hideError();
         optionFrame.pack();
     }
 }

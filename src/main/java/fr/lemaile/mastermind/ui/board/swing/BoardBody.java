@@ -1,6 +1,8 @@
 package fr.lemaile.mastermind.ui.board.swing;
 
 import fr.lemaile.mastermind.model.Color;
+import fr.lemaile.mastermind.model.LocaleOption;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,11 +21,13 @@ public class BoardBody extends JPanel {
         JPanel gridsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 35, 0));
 
         // => PROPOSITION PANEL
-        propositionPanel = new GridPanel(nbAttempts, nbPin, "Proposition");
+        String propositionTitle = LocaleOption.getUiMessages().getString(UiMessagesKeys.PROPOSITION_PANEL_TITLE.getCode());
+        propositionPanel = new GridPanel(nbAttempts, nbPin, propositionTitle);
         gridsPanel.add(propositionPanel);
 
         // => RESULT PANEL
-        validationPanel = new GridPanel(nbAttempts, nbPin, "Résultat");
+        String resultPanelTitle = LocaleOption.getUiMessages().getString(UiMessagesKeys.RESULT_PANEL_TITLE.getCode());
+        validationPanel = new GridPanel(nbAttempts, nbPin, resultPanelTitle);
         gridsPanel.add(validationPanel);
 
         //COMBINATION PANEL

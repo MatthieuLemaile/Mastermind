@@ -31,6 +31,7 @@ sonarqube {
         //configuring sonar exclusions.
         property 'sonar.coverage.exclusions', [
                 "**/mastermind/AppMain*",
+                "**/mastermind/model/*",
                 "**/mastermind/ui/about/**/*",
                 "**/mastermind/ui/board/**/*",
                 "**/mastermind/ui/option/**/*",
@@ -121,6 +122,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
+                    'fr/lemaile/mastermind/model**',
                     'fr/lemaile/mastermind/ui/about**',
                     'fr/lemaile/mastermind/ui/board**',
                     'fr/lemaile/mastermind/ui/option**',
