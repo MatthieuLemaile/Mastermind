@@ -2,7 +2,9 @@ package fr.lemaile.mastermind.controller;
 
 
 import fr.lemaile.mastermind.model.Color;
+import fr.lemaile.mastermind.model.LocaleOption;
 import fr.lemaile.mastermind.model.MatchParameters;
+import fr.lemaile.mastermind.model.UiMessagesKeys;
 import fr.lemaile.mastermind.ui.MenuWindow;
 import fr.lemaile.mastermind.ui.UiFactory;
 import org.slf4j.Logger;
@@ -73,7 +75,7 @@ public class Game implements GameEventListener {
         LOGGER.trace("Starting game");
         if (option.matchParametersError()) {
             LOGGER.error("Number of color/pin and color reusage inconsistent");
-            //display this to user.
+            menuWindow.showMessage(LocaleOption.getUiMessages().getString(UiMessagesKeys.MENU_NEW_MATCH_ERROR.getCode()));
         } else {
             factoryHelper.makeMatch(matchParameters, this, uiFactory);
             menuWindow.hide();

@@ -6,4 +6,6 @@ public interface MenuWindow {
     void hide();
 
     void show();
+
+    void showMessage(String message);
 }

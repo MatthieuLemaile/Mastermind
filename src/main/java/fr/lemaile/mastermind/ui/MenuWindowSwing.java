@@ -84,4 +84,9 @@ public class MenuWindowSwing implements MenuWindow {
         LOGGER.trace("Menu UI showed");
         menuFrame.setVisible(true);
     }
+
+    @Override
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
 }

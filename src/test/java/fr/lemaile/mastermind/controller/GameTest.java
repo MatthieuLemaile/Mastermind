@@ -75,6 +75,7 @@ class GameTest {
     void should_throw_exception_when_bad_params(){
         Mockito.when(option.matchParametersError()).thenReturn(true);
         game.startMatch();
+        Mockito.verify(menuWindow).showMessage(Mockito.anyString());
         Mockito.verify(factoryHelper, Mockito.never()).makeMatch(Mockito.any(MatchParameters.class), Mockito.any(GameEventListener.class), Mockito.eq(uiFactory));
         Mockito.verify(menuWindow, Mockito.never()).hide();
     }

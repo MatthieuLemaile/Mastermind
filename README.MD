@@ -61,9 +61,15 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * Option => calculator to compute how much attempts min you need.
 
 ######User-friendly
-* Show start match error to user (inconsistent options)
 
 ## Release History
+
+#### 1.7
+###### User visible
+* Error message when starting game with inappropriate parameters
+
+###### Dev Part
+* properties properly sorted.
 
 #### 1.6
 ###### User Visible
