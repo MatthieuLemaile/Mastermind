@@ -14,7 +14,7 @@ public class UiComponentsUtils implements Serializable {
     public static final Dimension MENU_ACTION_BUTTON_SIZE = new Dimension(250, 30);
 
     private UiComponentsUtils() {
-        //Hide implit public constructor
+        //Hide implicit public constructor
     }
 
     public static JLabel getTextField(String text) {

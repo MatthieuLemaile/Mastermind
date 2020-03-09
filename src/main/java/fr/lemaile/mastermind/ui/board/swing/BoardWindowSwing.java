@@ -56,10 +56,13 @@ public class BoardWindowSwing implements BoardWindow {
         panelBody.add(boardBody);
 
         //PLUS
-        Container principalContainer = boardFrame.getContentPane();
-        principalContainer.add(boardHeader, BorderLayout.PAGE_START);
-        principalContainer.add(panelBody, BorderLayout.CENTER);
+        JPanel mainContainer = new JPanel(new BorderLayout());
+        mainContainer.add(boardHeader, BorderLayout.PAGE_START);
+        mainContainer.add(panelBody, BorderLayout.CENTER);
         panelBody.setBorder(new EmptyBorder(5, 5, 20, 5));
+        JScrollPane scrollPane = new JScrollPane(mainContainer, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        boardFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         boardFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         //LANCER PREMIERE PARTIE

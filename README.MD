@@ -47,8 +47,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 
 ## Things to add
 
-#### 1.6 
-* internationalization
 
 #### backlog
 ###### technical improvment task
@@ -56,8 +54,6 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 * log into a file ?
 
 ###### code improvment
-* UComponentUtils should containes builders.
-* BoardBody => JSplitPane + JScrollPane ?
 
 ###### New features
 * Ask Marc : save highscores ? In this case we'll need file writing, Nio2. With times maybe ?
@@ -70,6 +66,10 @@ With the proper algorithm, 6 balls/8colors could be resolved in under 6 attempts
 ## Release History
 
 #### 1.6
+###### User Visible
+* internationalization
+* Scrollable board when too much possibilities
+
 ###### Dev part
 * java 9 module introduced. lightweight jar.
 * easier to compile uber jar, just run the shadowJar gradle task (it should be done on build).
